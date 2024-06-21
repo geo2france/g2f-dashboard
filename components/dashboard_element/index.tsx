@@ -1,7 +1,7 @@
 import { DownloadOutlined, FileImageOutlined, FullscreenOutlined, MoreOutlined } from "@ant-design/icons"
 import { Card, theme, Modal, Dropdown, MenuProps } from "antd"
 import React, { ReactNode, createContext, useEffect, useState } from "react";
-import { Attribution, SourceProps } from "../../../components/attributions";
+import { Attribution, SourceProps } from "../attributions";
 //import { useChartExport } from "../../utils/usechartexport";
 import { useChartExport } from "../../utils/usechartexports";
 import { LoadingComponent } from "../loading_container";
