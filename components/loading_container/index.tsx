@@ -28,6 +28,7 @@ export const LoadingComponent:React.FC<LoadingComponentProps> = ({isFetching, ch
         }
         else{
             timeoutRef.current && clearTimeout(timeoutRef.current );
+            setBlur(false);
         }
         return () => { timeoutRef.current && clearTimeout(timeoutRef.current ) }
     },[isFetching])
