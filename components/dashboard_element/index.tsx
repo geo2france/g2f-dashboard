@@ -6,11 +6,12 @@ import { Attribution, SourceProps } from "../attributions";
 import { useChartExport } from "../../utils/usechartexports";
 import { LoadingComponent } from "../loading_container";
 import  XLSX  from 'xlsx';
-import { DataFileType } from "../../../utils";
 
 const { useToken } = theme;
 export const imgContext = createContext(undefined);
 export const chartContext = createContext<any>({setchartRef:()=>{}, setData:()=>{}, data:undefined }); //Context permettant la remontée du ref Echarts enfant
+
+export type DataFileType = 'csv' | 'xlsx' | 'ods';
 
 //TODO integrer le composant loading container
 
