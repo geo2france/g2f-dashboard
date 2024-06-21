@@ -4,7 +4,7 @@ import React, { ReactNode, createContext, useEffect, useState } from "react";
 import { Attribution, SourceProps } from "../../../components/attributions";
 //import { useChartExport } from "../../utils/usechartexport";
 import { useChartExport } from "../../utils/usechartexports";
-import { LoadingComponent } from "../../../components/loading_container";
+import { LoadingComponent } from "../loading_container";
 import  XLSX  from 'xlsx';
 import { DataFileType } from "../../../utils";
 
