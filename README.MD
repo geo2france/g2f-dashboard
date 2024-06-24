@@ -77,3 +77,7 @@ TODO : Exemple concret avec _bar_ et _pie_ et cas d'usage.
 
 Notes : le _hilight_ est un effet subtil. Souvent on privilégiera un changement de couleur pour mettre en évidence une information importante (par exemple l'année sélectionnée).
 Le _hilight_ sera plus souvent utilisé pour mettre un évidence un élément similaire à plusieurs graphique lors du survol d'un des deux graphique.
+
+### useSearchParamsState
+
+Récuperer des etats depuis l'URL. C'est l'équivalent de [useState](https://react.dev/reference/react/useState), mais dont la valeur initiale peut être récupérer via l'URL. Utile pour permettre aux utilisateurs de partager un tableau de bord avec ces états (filtres, etc.).
