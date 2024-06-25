@@ -80,4 +80,11 @@ Le _hilight_ sera plus souvent utilisé pour mettre un évidence un élément si
 
 ### useSearchParamsState
 
-Récuperer des etats depuis l'URL. C'est l'équivalent de [useState](https://react.dev/reference/react/useState), mais dont la valeur initiale peut être récupérer via l'URL. Utile pour permettre aux utilisateurs de partager un tableau de bord avec ces états (filtres, etc.).
+Récuperer des états depuis l'URL et met à jours l'URL en cas de modification des états. C'est l'équivalent de [useState](https://react.dev/reference/react/useState) mais avec synchronisation de l'URL. 
+Utile pour permettre aux utilisateurs de partager un tableau de bord avec ces états (filtres, etc.).
+
+Exemple :
+```Typescript
+    //Syncronise la variable 'year' avec le paramètre 'annee' de l'URL
+    const [year, setYear] = useSearchParamsState('annee','2021')  
+```
