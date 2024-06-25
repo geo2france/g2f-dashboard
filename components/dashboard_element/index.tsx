@@ -83,7 +83,7 @@ export const DashboardElement: React.FC<IDashboardElementProps> = ({
     if(data && requestDlData){
       const worksheet = XLSX.utils.json_to_sheet(data);
       const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, title);
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'data'); // Caution : Ensure sheetname < 31 char and no special char
       XLSX.writeFile(workbook, `${title}.${requestDlData}`, { compression: true });
       setrequestDlData(null)
     }
