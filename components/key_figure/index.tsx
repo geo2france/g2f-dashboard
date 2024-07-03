@@ -6,10 +6,12 @@ const { Text } = Typography;
 
 export interface KeyFigureProps {
     name:string,
-    descritption?:string,
+    description?:string,
     value:number|string,
+    unit?:string,
     sub_value?:number|string,
-    icon?:ReactElement
+    icon?:ReactElement,
+    digits?:number
 }
 
 /**
@@ -17,7 +19,7 @@ export interface KeyFigureProps {
  * Si une description est fournie, le composant "flip" pour montrer la description
  * L'utilisateur peut aussi fournir une valeur de référence, généralement la valeur régionale ou nationale
  */
-export const KeyFigure: React.FC<KeyFigureProps> = ({ name, descritption='Pas de description', value, sub_value, icon }) => {
+export const KeyFigure: React.FC<KeyFigureProps> = ({ name, description, value, unit, sub_value, icon, digits }) => {
     const [flipped, setFlipped] = useState(false);
     const toggleFlipped = () => setFlipped(!flipped);
 
@@ -32,7 +34,7 @@ export const KeyFigure: React.FC<KeyFigureProps> = ({ name, descritption='Pas de
     const title: ReactElement = (
       <span style={{ marginLeft: 5 }}>
         {name}{" "}
-        {descritption && ( //Affichage du bouton "i" s'il y a une description
+        {description && ( //Affichage du bouton "i" s'il y a une description
           <Button
             type="text"
             onClick={toggleFlipped}
@@ -50,9 +52,9 @@ export const KeyFigure: React.FC<KeyFigureProps> = ({ name, descritption='Pas de
           title={title}
           style={{ transform: flipped ? "rotateY(180deg)" : "", ...cardStyle }}
         >
-          <div style={{ textAlign: "center", marginTop:10 }}>
+          <div style={{ textAlign: "center", marginTop: 10 }}>
             <span style={{ fontSize: 24 }}>
-              {icon} {value.toLocaleString()}
+              {icon} {value.toLocaleString(undefined,{maximumFractionDigits:digits})} {unit}
             </span>{" "}
             <span style={{ fontSize: 18 }}>
               <br />
@@ -64,7 +66,11 @@ export const KeyFigure: React.FC<KeyFigureProps> = ({ name, descritption='Pas de
           title={title}
           style={{ transform: !flipped ? "rotateY(180deg)" : "", ...cardStyle }}
         >
-          {descritption}
+          <div style={{ margin: 10 }}>
+            <Text italic type="secondary">
+              {description}
+            </Text>
+          </div>
         </Card>
       </div>
     );
