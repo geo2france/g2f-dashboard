@@ -1,7 +1,8 @@
-import { LeftCircleOutlined, LeftOutlined, RightCircleOutlined, RightOutlined, VerticalLeftOutlined, VerticalRightOutlined } from "@ant-design/icons"
+import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons"
 import { Button, Flex, Select, } from "antd"
 import { CSSProperties, useEffect, useState } from "react"
 
+import './index.css'
 
 
 export interface NextPrevSelectProps {
@@ -49,18 +50,19 @@ export const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
 
   return (
     <Flex style={style}>
-      <Button onClick={() => setCurrent_value(previous())} disabled={isFirst()}>
-      <LeftCircleOutlined />
+      <Button className="nextPrevSelect-left-button" onClick={() => setCurrent_value(previous())} disabled={isFirst()}>
+      <CaretLeftOutlined />
       </Button>
       <Select
+        className="nextPrevSelect"
         options={options}
         style={style}
         value={current_value}
         defaultValue={defaultValue}
         onChange={setCurrent_value}
       />
-      <Button onClick={() => setCurrent_value(next())} disabled={isLast()}>
-      <RightCircleOutlined />
+      <Button className="nextPrevSelect-right-button" onClick={() => setCurrent_value(next())} disabled={isLast()}>
+      <CaretRightOutlined />
       </Button>
     </Flex>
   );
