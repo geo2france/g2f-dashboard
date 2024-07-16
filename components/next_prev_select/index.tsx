@@ -1,16 +1,15 @@
 import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons"
-import { Button, Flex, Select, } from "antd"
+import { Button, Flex, Select, SelectProps} from "antd"
 import { CSSProperties, useEffect, useState } from "react"
-
 import './index.css'
 
 
-export interface NextPrevSelectProps {
-    options?:any[]
+export interface NextPrevSelectProps  {
+    options:SelectProps['options']
     style?:CSSProperties
-    defaultValue?:string
-    value?:string
-    onChange?:Function
+    defaultValue?:string | number
+    value:string | number
+    onChange?: (value: string | number) => void;
     reverse?:boolean // False : next = goDown
   }
 
@@ -22,19 +21,19 @@ export const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
   onChange,
   reverse = false,
 }) => {
-  const [current_value, setCurrent_value] = useState(value);
+  const [current_value, setCurrent_value] = useState<string | number>(value);
 
   const current_index = options?.findIndex((o) => o.value == current_value);
 
   const next = () =>
     reverse
-      ? options[current_index - 1].value
-      : options[current_index + 1].value;
+      ? options[current_index - 1].value!
+      : options[current_index + 1].value!;
 
   const previous = () =>
     reverse
-      ? options[current_index + 1].value
-      : options[current_index - 1].value;
+      ? options[current_index + 1].value!
+      : options[current_index - 1].value!;
 
   const isFirst = () =>
     reverse ? current_index == options.length - 1 : current_index == 0;
@@ -44,7 +43,7 @@ export const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
 
 
   useEffect(() => {
-    onChange && onChange(current_value);
+    onChange && onChange(current_value.toString());
   }, [current_value])
 
 
