@@ -6,7 +6,7 @@ export interface useChartEventsProps{
   /** Fonction appelée lors du click Généralement c'est un setStat() */
   onClick?: Function,
   /** Fonction appelée lors du mouse-over ET mouse-out (avec paramètre null pour le mouse-out). Généralement c'est un setStat() */
-  onFocus?: Function
+  onFocus?: (e:any) => void;
 }
 /** Hook permettant de récupérer les évenements click et mouseover/mouseout d'un graphique ECharts 
  * @category Hook
