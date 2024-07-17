@@ -1,6 +1,27 @@
 {
+  "name":"g2f-dashboard",
+  "version":"1.0.0",
+  "private":"false",
+  "description":"Components, hooks and functions collection for dashboards creation",
+  "repository":{
+      "type":"git",
+      "url":"git@github.com:geo2france/g2f-dashboard.git"
+  },
+  "author":{
+      "name":"Jean-Baptiste Desbas",
+      "email":"jb@desbas.fr",
+      "url":"http://jb.desbas.fr"
+  },
+  "licence":"MIT",
+  "keywords":[
+      "dashboard",
+      "territories",
+      "dataviz"
+  ],
   "dependencies": {
-    "antd": "^5.18.3"
+    "antd": "^5.18.3",
+    "echarts": "^5.4.3",
+    "echarts-for-react": "^3.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
