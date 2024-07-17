@@ -8,7 +8,7 @@ export interface useChartExportProps{
  * @param ref - Référence de l'objet (echarts ou maplibre)
  * @returns - L'image en base64
  */
-export const getDataURL = (ref:MutableRefObject<any>) => {
+const getDataURL = (ref:MutableRefObject<any>) => {
     if('getCanvas' in ref.current){ //maplibre
         return ref.current.getCanvas().toDataURL();
     }else if ('getEchartsInstance' in ref.current){ //Echart
