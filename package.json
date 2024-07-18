@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "private": "false",
   "description": "Components, hooks and functions collection for dashboards creation",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:geo2france/g2f-dashboard.git"
