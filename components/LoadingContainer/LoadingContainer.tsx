@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { Spin } from 'antd';
 
-export interface LoadingComponentProps {
+export interface LoadingContainerProps {
     isFetching: boolean;
     children: React.ReactNode;
     blurRadius?: string;
@@ -16,7 +16,7 @@ export interface LoadingComponentProps {
  * @param blurRadius Rayon du floutage (par défaut : 10px)
  * @param delay Délai en millisecondes avant d'appliquer le flou lors du chargement (par défaut : 500ms)
  */
-export const LoadingComponent:React.FC<LoadingComponentProps> = ({isFetching, children, blurRadius='10px', delay=500}) =>
+export const LoadingContainer:React.FC<LoadingContainerProps> = ({isFetching, children, blurRadius='10px', delay=500}) =>
 {
     const [blur, setBlur] = useState(false);
     const timeoutRef = useRef<number | null>(null); //Le timeout permet que le blur ne s'affiche pas si le chargement est plus court que delay (éviter effet clignotement)

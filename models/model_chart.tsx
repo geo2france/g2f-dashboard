@@ -6,7 +6,7 @@ import ReactECharts from 'echarts-for-react';
 import { EChartsOption, BarSeriesOption } from "echarts";
 import alasql from "alasql";
 
-import { useChartData, useDashboardElement } from "../components/dashboard_element/hooks"
+import { useChartData, useDashboardElement } from "../components/DashboardElement/hooks"
 import { useChartActionHightlight, useChartEvents } from "../utils/usecharthightlight";
 
 /**

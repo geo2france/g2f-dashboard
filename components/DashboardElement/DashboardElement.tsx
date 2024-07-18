@@ -1,9 +1,9 @@
 import { DownloadOutlined, FileImageOutlined, FullscreenOutlined, MoreOutlined } from "@ant-design/icons"
 import { Card, theme, Modal, Dropdown, MenuProps } from "antd"
 import React, { ReactNode, createContext, useEffect, useState } from "react";
-import { Attribution, SourceProps } from "../attributions/attributions";
+import { Attribution, SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
-import { LoadingComponent } from "../loading_container/loading_container";
+import { LoadingContainer } from "../LoadingContainer/LoadingContainer";
 import  XLSX  from 'xlsx';
 
 const { useToken } = theme;
@@ -140,9 +140,9 @@ export const DashboardElement: React.FC<IDashboardElementProps> = ({
           <div style={{paddingRight:5, fontSize:16}}>{toolbox && dropdown_toolbox}</div>
         </div>}>
       <chartContext.Provider value={{chartRef, setchartRef, setData}}>
-        <LoadingComponent isFetching={isFetching}>
+        <LoadingContainer isFetching={isFetching}>
             {children}
-        </LoadingComponent>
+        </LoadingContainer>
         { attributions && <Attribution data={attributions} /> }
       </chartContext.Provider>
     </Card>
