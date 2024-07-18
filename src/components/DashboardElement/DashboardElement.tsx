@@ -7,8 +7,7 @@ import LoadingContainer from "../LoadingContainer/LoadingContainer";
 import  XLSX  from 'xlsx';
 
 const { useToken } = theme;
-const imgContext = createContext(undefined);
-const chartContext = createContext<any>({setchartRef:()=>{}, setData:()=>{}, data:undefined }); //Context permettant la remontée du ref Echarts enfant
+export const chartContext = createContext<any>({setchartRef:()=>{}, setData:()=>{}, data:undefined }); //Context permettant la remontée du ref Echarts enfant
 
 type DataFileType = 'csv' | 'xlsx' | 'ods';
 
