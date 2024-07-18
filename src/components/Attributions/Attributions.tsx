@@ -29,8 +29,8 @@ export const Attribution: React.FC<AttributionProps> = ({ data }) => {
                 ))}
                 <span> | Réalisation : <a href='https://www.hautsdefrance.fr/communique-de-presse-lancement-de-lobservatoire-dechets-matieres-odema-des-hauts-de-france/' >Odema</a> </span>
                 <Tooltip title="CC BY" placement="bottom">
-                    <img src={CC} style={licence_logo_style} />
-                    <img src={BY} style={licence_logo_style}></img>
+                    <CC style={licence_logo_style} />
+                    <BY style={licence_logo_style} />
                 </Tooltip>
             </Text>
 

@@ -2,7 +2,7 @@ import { DownloadOutlined, FileImageOutlined, FullscreenOutlined, MoreOutlined }
 import { Card, theme, Modal, Dropdown, MenuProps } from "antd"
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 import { Attribution, SourceProps } from "../Attributions/Attributions";
-import { useChartExport } from "../../utils/usechartexports";
+import { useChartExport } from "../../../utils/usechartexports";
 import { LoadingContainer } from "../LoadingContainer/LoadingContainer";
 import  XLSX  from 'xlsx';
 
