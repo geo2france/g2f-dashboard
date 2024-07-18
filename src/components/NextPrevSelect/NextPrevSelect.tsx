@@ -5,7 +5,7 @@ import { CSSProperties, useEffect, useState } from "react"
 import './NextPrevSelect.css'
 
 
-export interface NextPrevSelectProps  {
+interface NextPrevSelectProps  {
     options:SelectProps['options']
     style?:CSSProperties
     defaultValue?:string | number
@@ -14,7 +14,7 @@ export interface NextPrevSelectProps  {
     reverse?:boolean // False : next = goDown
   }
 
-export const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
+const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
   options = [],
   style,
   value,
@@ -67,3 +67,5 @@ export const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
     </Flex>
   );
 };
+
+export default NextPrevSelect;

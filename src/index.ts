@@ -8,10 +8,11 @@ export { useChartData, useDashboardElement } from "./components/DashboardElement
 export { BaseRecordToGeojsonPoint } from "./utils/baserecordtogeojsonpoint"
 
 // Components
-export { DashboardElement } from "./components/DashboardElement/DashboardElement"
-export { LoadingContainer as LoadingComponent } from "./components/LoadingContainer/LoadingContainer"
-export { FlipCard } from "./components/FlipCard/FlipCard"
-export { KeyFigure } from "./components/KeyFigure/KeyFigure"
-export { Attribution } from "./components/Attributions/Attributions"
-export { NextPrevSelect } from "./components/NextPrevSelect/NextPrevSelect"
+import KeyFigure from "./components/KeyFigure/KeyFigure"
+import DashboardElement from "./components/DashboardElement/DashboardElement"
+import LoadingContainer  from "./components/LoadingContainer/LoadingContainer"
+import FlipCard from "./components/FlipCard/FlipCard"
+import Attribution from "./components/Attributions/Attributions"
+import NextPrevSelect from "./components/NextPrevSelect/NextPrevSelect"
 
+export { KeyFigure, DashboardElement, LoadingContainer, FlipCard, Attribution, NextPrevSelect } 

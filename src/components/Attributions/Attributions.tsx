@@ -10,11 +10,11 @@ export interface SourceProps {
     url?:string,
 }
 
-export interface AttributionProps {
+interface AttributionProps {
     data:SourceProps[]
 }
 
-export const Attribution: React.FC<AttributionProps> = ({ data }) => {
+const Attribution: React.FC<AttributionProps> = ({ data }) => {
     //const licence_logo_style:React.CSSProperties = {height:'12px'}
 
     const plural = data.length > 1 ? 's' : ''
@@ -35,4 +35,6 @@ export const Attribution: React.FC<AttributionProps> = ({ data }) => {
 
         </div>
     )
-}
+};
+
+export default Attribution;
