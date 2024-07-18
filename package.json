@@ -19,6 +19,9 @@
     "territories",
     "dataviz"
   ],
+  "scripts": {
+    "tsc": "tsc"
+  },
   "dependencies": {
     "alasql": "^4.5.0",
     "antd": "^5.18.3",
