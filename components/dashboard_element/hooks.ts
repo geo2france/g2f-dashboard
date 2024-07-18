@@ -1,4 +1,4 @@
-import { chartContext } from ".";
+import { chartContext } from "./dashboard_element";
 import { MutableRefObject, useContext, useEffect } from "react";
 
 

@@ -1,7 +1,7 @@
 // Documentation Echarts : https://echarts.apache.org/en/option.html
 // Documentation Alasql : https://github.com/AlaSQL/alasql/wiki/
 
-import { CSSProperties, useRef } from "react";
+import React, { CSSProperties, useRef } from "react";
 import ReactECharts from 'echarts-for-react';
 import { EChartsOption, BarSeriesOption } from "echarts";
 import alasql from "alasql";

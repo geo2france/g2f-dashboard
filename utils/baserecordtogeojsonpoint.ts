@@ -1,8 +1,7 @@
-import { BaseRecord } from "@refinedev/core";
 import { FeatureCollection, Feature } from "geojson";
 
 export interface IBaseRecordToGeojsonPoint{
-    data : BaseRecord[],
+    data : { [key: string]: any }[],
     x : string,
     y : string,
     crs_name? :string
@@ -13,7 +12,7 @@ export interface FeatureCollection_crs extends FeatureCollection {crs?:any};
 export const BaseRecordToGeojsonPoint = ({data, x, y, crs_name}:IBaseRecordToGeojsonPoint) => {
 
     //Tester maplibre avec CRS != 4326
-    const features:Feature[] = data.map((e:BaseRecord) => 
+    const features:Feature[] = data.map((e) => 
        ( {
         type:"Feature",
         properties:{...e},

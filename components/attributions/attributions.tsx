@@ -3,7 +3,6 @@ import React from 'react';
 import CC from "../../assets/img/cc.svg";
 import BY from "../../assets/img/by.svg";
 
-
 const { Text, Link } = Typography;
 
 export interface SourceProps {

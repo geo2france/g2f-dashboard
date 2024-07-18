@@ -1,3 +1,4 @@
+import React from 'react'
 import { Button, Card, Typography } from "antd"
 import { CSSProperties, ReactElement, useState } from "react"
 import { BsInfoCircle, BsInfoCircleFill } from "react-icons/bs"

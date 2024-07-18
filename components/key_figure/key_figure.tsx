@@ -1,6 +1,7 @@
+import React from 'react'
 import { Typography } from "antd"
 import {  ReactElement } from "react"
-import { FlipCard } from "../flipcard";
+import { FlipCard } from "../flipcard/flipcard";
 
 const { Text } = Typography;
 
