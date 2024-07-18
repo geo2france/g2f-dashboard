@@ -1,31 +1,41 @@
 {
-  "name":"g2f-dashboard",
-  "version":"1.0.0",
-  "private":"false",
-  "description":"Components, hooks and functions collection for dashboards creation",
-  "repository":{
-      "type":"git",
-      "url":"git@github.com:geo2france/g2f-dashboard.git"
+  "name": "g2f-dashboard",
+  "version": "1.0.1",
+  "private": "false",
+  "description": "Components, hooks and functions collection for dashboards creation",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:geo2france/g2f-dashboard.git"
   },
-  "author":{
-      "name":"Jean-Baptiste Desbas",
-      "email":"jb@desbas.fr",
-      "url":"http://jb.desbas.fr"
+  "author": {
+    "name": "Jean-Baptiste Desbas",
+    "email": "jb@desbas.fr",
+    "url": "http://jb.desbas.fr"
   },
-  "licence":"MIT",
-  "keywords":[
-      "dashboard",
-      "territories",
-      "dataviz"
+  "licence": "MIT",
+  "keywords": [
+    "dashboard",
+    "territories",
+    "dataviz"
   ],
   "dependencies": {
+    "alasql": "^4.5.0",
     "antd": "^5.18.3",
-    "echarts": "^5.4.3",
-    "echarts-for-react": "^3.0.2"
+    "echarts": "^5.5.1",
+    "echarts-for-react": "^3.0.2",
+    "react": "^18.3.1",
+    "react-icons": "^5.2.1",
+    "react-router-dom": "^6.25.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
   },
   "devDependencies": {
+    "@types/geojson": "^7946.0.14",
     "@types/react": "^18.3.3",
-    "react": "^18.3.1",
-    "typescript": "^5.5.2"
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.2",
+    "vite": "^5.3.4",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }

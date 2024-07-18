@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useRef, useState } from "react";
 import { Spin } from 'antd';
 
@@ -18,7 +19,7 @@ export interface LoadingComponentProps {
 export const LoadingComponent:React.FC<LoadingComponentProps> = ({isFetching, children, blurRadius='10px', delay=500}) =>
 {
     const [blur, setBlur] = useState(false);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null); //Le timeout permet que le blur ne s'affiche pas si le chargement est plus court que delay (éviter effet clignotement)
+    const timeoutRef = useRef<number | null>(null); //Le timeout permet que le blur ne s'affiche pas si le chargement est plus court que delay (éviter effet clignotement)
 
     useEffect(() => {
         if(isFetching){
