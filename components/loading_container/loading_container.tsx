@@ -23,7 +23,7 @@ export const LoadingComponent:React.FC<LoadingComponentProps> = ({isFetching, ch
 
     useEffect(() => {
         if(isFetching){
-            timeoutRef.current = setTimeout(() => {
+            timeoutRef.current = window.setTimeout(() => {
                 setBlur(true);
             }, delay);
         }

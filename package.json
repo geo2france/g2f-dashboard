@@ -1,6 +1,6 @@
 {
   "name": "g2f-dashboard",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": "false",
   "description": "Components, hooks and functions collection for dashboards creation",
   "repository": {
