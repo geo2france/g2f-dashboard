@@ -1,7 +1,7 @@
 import { Tooltip, Typography } from 'antd';
 import React from 'react';
-import CC from "../../assets/img/cc.svg";
-import BY from "../../assets/img/by.svg";
+//import CC from "../../assets/img/cc.svg";
+//import BY from "../../assets/img/by.svg";
 
 const { Text, Link } = Typography;
 
@@ -15,7 +15,7 @@ export interface AttributionProps {
 }
 
 export const Attribution: React.FC<AttributionProps> = ({ data }) => {
-    const licence_logo_style:React.CSSProperties = {height:'12px'}
+    //const licence_logo_style:React.CSSProperties = {height:'12px'}
 
     const plural = data.length > 1 ? 's' : ''
     return (
@@ -29,8 +29,7 @@ export const Attribution: React.FC<AttributionProps> = ({ data }) => {
                 ))}
                 <span> | Réalisation : <a href='https://www.hautsdefrance.fr/communique-de-presse-lancement-de-lobservatoire-dechets-matieres-odema-des-hauts-de-france/' >Odema</a> </span>
                 <Tooltip title="CC BY" placement="bottom">
-                    <CC style={licence_logo_style} />
-                    <BY style={licence_logo_style} />
+
                 </Tooltip>
             </Text>
 
