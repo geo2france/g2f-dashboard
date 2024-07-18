@@ -1,8 +1,9 @@
 {
   "name": "g2f-dashboard",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "private": "false",
   "description": "Components, hooks and functions collection for dashboards creation",
+  "main": "src/index.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:geo2france/g2f-dashboard.git"
@@ -18,6 +19,9 @@
     "territories",
     "dataviz"
   ],
+  "scripts": {
+    "tsc": "tsc"
+  },
   "dependencies": {
     "alasql": "^4.5.0",
     "antd": "^5.18.3",

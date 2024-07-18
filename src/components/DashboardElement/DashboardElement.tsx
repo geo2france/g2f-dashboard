@@ -1,20 +1,19 @@
 import { DownloadOutlined, FileImageOutlined, FullscreenOutlined, MoreOutlined } from "@ant-design/icons"
 import { Card, theme, Modal, Dropdown, MenuProps } from "antd"
 import React, { ReactNode, createContext, useEffect, useState } from "react";
-import { Attribution, SourceProps } from "../attributions/attributions";
+import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
-import { LoadingComponent } from "../loading_container/loading_container";
+import LoadingContainer from "../LoadingContainer/LoadingContainer";
 import  XLSX  from 'xlsx';
 
 const { useToken } = theme;
-export const imgContext = createContext(undefined);
 export const chartContext = createContext<any>({setchartRef:()=>{}, setData:()=>{}, data:undefined }); //Context permettant la remontée du ref Echarts enfant
 
-export type DataFileType = 'csv' | 'xlsx' | 'ods';
+type DataFileType = 'csv' | 'xlsx' | 'ods';
 
 //TODO integrer le composant loading container
 
-export interface IDashboardElementProps{
+interface IDashboardElementProps{
     title:string,
     children:ReactNode,
     isFetching?:boolean,
@@ -35,7 +34,7 @@ export interface IDashboardElementProps{
  * @param {boolean} [props.fullscreen=true] - Autoriser l'affichage en plein écran. Autorisé par défaut.
  * @returns {React.ReactNode} - Le composant de la card avec les éléments enfants et les utilitaires.
  */
-export const DashboardElement: React.FC<IDashboardElementProps> = ({
+const DashboardElement: React.FC<IDashboardElementProps> = ({
   children,
   title,
   attributions,
@@ -140,9 +139,9 @@ export const DashboardElement: React.FC<IDashboardElementProps> = ({
           <div style={{paddingRight:5, fontSize:16}}>{toolbox && dropdown_toolbox}</div>
         </div>}>
       <chartContext.Provider value={{chartRef, setchartRef, setData}}>
-        <LoadingComponent isFetching={isFetching}>
+        <LoadingContainer isFetching={isFetching}>
             {children}
-        </LoadingComponent>
+        </LoadingContainer>
         { attributions && <Attribution data={attributions} /> }
       </chartContext.Provider>
     </Card>
@@ -164,3 +163,5 @@ export const DashboardElement: React.FC<IDashboardElementProps> = ({
   </>
   );
 };
+
+export default DashboardElement;

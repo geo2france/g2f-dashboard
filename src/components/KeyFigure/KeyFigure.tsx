@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography } from "antd"
 import {  ReactElement } from "react"
-import { FlipCard } from "../flipcard/flipcard";
+import FlipCard from "../FlipCard/FlipCard";
 
 const { Text } = Typography;
 
@@ -20,7 +20,7 @@ export interface KeyFigureProps {
  * Si une description est fournie, le composant "flip" pour montrer la description
  * L'utilisateur peut aussi fournir une valeur de référence, généralement la valeur régionale ou nationale
  */
-export const KeyFigure: React.FC<KeyFigureProps> = ({ name, description, value, unit, sub_value, icon, digits }) => {
+const KeyFigure: React.FC<KeyFigureProps> = ({ name, description, value, unit, sub_value, icon, digits }) => {
 
     return (
         <FlipCard title={name} information={description}>
@@ -36,4 +36,6 @@ export const KeyFigure: React.FC<KeyFigureProps> = ({ name, description, value, 
 
           </FlipCard>
     );
-}
+};
+
+export default KeyFigure;

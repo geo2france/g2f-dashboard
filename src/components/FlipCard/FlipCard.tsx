@@ -6,7 +6,7 @@ import { BsInfoCircle, BsInfoCircleFill } from "react-icons/bs"
 const { Text } = Typography;
 
 
-export interface FlipCardProps {
+interface FlipCardProps {
     title?:string|ReactElement
     children:ReactElement
     information?:ReactElement|string
@@ -16,7 +16,7 @@ export interface FlipCardProps {
 /**
  * Une card qui peux se retourner et afficher des informations
  */
-export const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => {
+const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => {
     const [flipped, setFlipped] = useState(false);
     const toggleFlipped = () => setFlipped(!flipped);
 
@@ -68,4 +68,6 @@ export const FlipCard: React.FC<FlipCardProps> = ({ title, information, children
         </Card>
       </div>
     );
-}
+};
+
+export default FlipCard;
