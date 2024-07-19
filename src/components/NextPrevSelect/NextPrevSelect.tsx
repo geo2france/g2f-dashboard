@@ -9,7 +9,7 @@ interface NextPrevSelectProps  {
     options:SelectProps['options']
     style?:CSSProperties
     defaultValue?:string | number
-    value:string | number
+    value?:string | number
     onChange?: (value: string | number) => void;
     reverse?:boolean // False : next = goDown
   }
@@ -22,7 +22,7 @@ const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
   onChange,
   reverse = false,
 }) => {
-  const [current_value, setCurrent_value] = useState<string | number>(value);
+  const [current_value, setCurrent_value] = useState<string | number | undefined>(value);
 
   const current_index = options?.findIndex((o) => o.value == current_value);
 
@@ -44,7 +44,7 @@ const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
 
 
   useEffect(() => {
-    onChange && onChange(current_value.toString());
+    current_value && onChange && onChange(current_value.toString());
   }, [current_value])
 
 
