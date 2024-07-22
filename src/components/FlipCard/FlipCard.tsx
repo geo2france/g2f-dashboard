@@ -8,7 +8,7 @@ const { Text } = Typography;
 
 interface FlipCardProps {
     title?:string|ReactElement
-    children:ReactElement
+    children:ReactElement | ReactElement[]
     information?:ReactElement|string
 }
 
