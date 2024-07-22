@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button, Card, Typography } from "antd"
 import { CSSProperties, ReactElement, useState } from "react"
 import { BsInfoCircle, BsInfoCircleFill } from "react-icons/bs"
@@ -14,18 +14,20 @@ interface FlipCardProps {
 
 
 /**
- * Une card qui peux se retourner et afficher des informations
+ * Une card qui peux se retourner et afficher des informations a son verso
  */
 const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => {
     const [flipped, setFlipped] = useState(false);
     const toggleFlipped = () => setFlipped(!flipped);
+    const cardARef = useRef<HTMLDivElement>(null);
+
+    const height = cardARef.current ? cardARef.current.clientHeight : undefined; // Forcer la hauteur à celle de la card "Recto"
 
     const cardStyle: CSSProperties = {
         position: "absolute",
         transition: "transform 0.8s",
         backfaceVisibility: "hidden",
         width: "100%",
-        height: "100%",
       };
 
       const titleElement: ReactElement = (
@@ -45,16 +47,21 @@ const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => 
       );
 
     return (
-      <div style={{ position: "relative", height: 120 }}>
+      <div style={{ position: "relative", height: height }}> 
         <Card
           title={titleElement}
           style={{ transform: flipped ? "rotateY(180deg)" : "", ...cardStyle }}
+          ref={cardARef}
         >
           {children}
         </Card>
         <Card
           title={titleElement}
-          style={{ transform: !flipped ? "rotateY(180deg)" : "", ...cardStyle }}
+          style={{ 
+            transform: !flipped ? "rotateY(180deg)" : "", 
+            height: height ,
+            overflow:"auto",
+            ...cardStyle}} 
         >
           {typeof information === "string" ? (
             <div style={{ margin: 10 }}>
