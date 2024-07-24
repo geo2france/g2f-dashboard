@@ -1,4 +1,3 @@
-import { HttpError } from "@refinedev/core";
 import axios from "axios";
 
 const axiosInstance = axios.create();
@@ -11,7 +10,7 @@ axiosInstance.interceptors.response.use(
       if(typeof response.data === "object"){
         return response;
       }else{
-        const customError: HttpError = {
+        const customError = {
           message: response.data,
           statusCode: response.status,
         };
@@ -19,7 +18,7 @@ axiosInstance.interceptors.response.use(
     }
   },
   (error) => {
-    const customError: HttpError = {
+    const customError = {
       ...error,
       message: error.response?.data?.message,
       statusCode: error.response?.status,

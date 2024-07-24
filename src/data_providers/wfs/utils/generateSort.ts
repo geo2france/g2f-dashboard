@@ -1,6 +1,4 @@
-import { CrudSorting } from "@refinedev/core";
-
-export const generateSort = (sorters?: CrudSorting) => {
+export const generateSort = (sorters?: any[]) => {
   if (sorters && sorters.length > 0) {
     const _sort: string[] = [];
 

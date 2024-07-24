@@ -1,6 +1,4 @@
-import { CrudOperators } from "@refinedev/core";
-
-export const mapOperator = (operator: CrudOperators): string => {
+export const mapOperator = (operator: any): string => {
   switch (operator) {
     case "ne":
       return '<>'

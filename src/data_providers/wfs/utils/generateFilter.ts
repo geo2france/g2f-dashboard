@@ -1,7 +1,6 @@
-import { CrudFilters } from "@refinedev/core";
 import { mapOperator } from "./mapOperator";
 
-export const generateFilter = (filters?: CrudFilters) => {
+export const generateFilter = (filters?: any[]) => {
   const array_filter: string[] = []
   let bbox: string = ''
   if (filters) {
