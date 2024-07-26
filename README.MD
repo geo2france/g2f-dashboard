@@ -14,8 +14,13 @@ Utilisés pour le [tableau de bord de l'Odema](https://github.com/geo2france/ode
 
 ## Hooks et fonctions
 
+- [useApi](/src/utils/README.MD) ⭐
 - [useChartEvents](/src/utils/README.MD) ⭐
 - [useChartActionHightlight](/src/utils/README.MD) ⭐
 - [useSearchParamsState](/src/utils/README.MD) ⭐
 - [useChartExport](/src/utils/README.MD)
 
+## Fournisseur de données
+
+- [WFS](/src/data_providers/wfs/) ⭐
+- [Datafair](/src/data_providers/datafair/) ⭐
