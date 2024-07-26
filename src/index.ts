@@ -24,3 +24,7 @@ import { dataProvider as WfsProvider } from "./data_providers/wfs";
 import { dataProvider as DatafairProvider } from "./data_providers/datafair";
 
 export {WfsProvider, DatafairProvider}
+
+
+// Types
+export type { SimpleRecord } from "./types"
