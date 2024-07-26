@@ -4,7 +4,7 @@ import React, { ReactNode, createContext, useEffect, useState } from "react";
 import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
 import LoadingContainer from "../LoadingContainer/LoadingContainer";
-import  XLSX  from 'xlsx';
+//import  XLSX  from 'xlsx';
 
 const { useToken } = theme;
 export const chartContext = createContext<any>({setchartRef:()=>{}, setData:()=>{}, data:undefined }); //Context permettant la remontée du ref Echarts enfant
@@ -76,14 +76,18 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
     setrequestDlData(filetype)
   }
 
-
+  
   useEffect(() => {
     if(data && requestDlData){
-      const worksheet = XLSX.utils.json_to_sheet(data);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'data'); // Caution : Ensure sheetname < 31 char and no special char
-      XLSX.writeFile(workbook, `${title}.${requestDlData}`, { compression: true });
-      setrequestDlData(null)
+      const handleDl = async () => {
+        const XLSX = await import('xlsx');
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'data'); // Caution : Ensure sheetname < 31 char and no special char
+        XLSX.writeFile(workbook, `${title}.${requestDlData}`, { compression: true });
+        setrequestDlData(null)
+      };
+      handleDl()
     }
   },[requestDlData])
 
