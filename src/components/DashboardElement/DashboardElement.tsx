@@ -1,10 +1,9 @@
 import { DownloadOutlined, FileImageOutlined, FullscreenOutlined, MoreOutlined } from "@ant-design/icons"
-import { Card, theme, Modal, Dropdown, MenuProps } from "antd"
+import { Card, theme, Modal, Dropdown, MenuProps, Flex } from "antd"
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
 import LoadingContainer from "../LoadingContainer/LoadingContainer";
-//import  XLSX  from 'xlsx';
 
 const { useToken } = theme;
 export const chartContext = createContext<any>({setchartRef:()=>{}, setData:()=>{}, data:undefined }); //Context permettant la remontée du ref Echarts enfant
@@ -137,17 +136,22 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
 
   return (
   <>
-    <Card title={
+    <Card style={{height:'100%'}} title={
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{marginLeft:5}}>{title}</span>
           <div style={{paddingRight:5, fontSize:16}}>{toolbox && dropdown_toolbox}</div>
         </div>}>
+
+
       <chartContext.Provider value={{chartRef, setchartRef, setData}}>
         <LoadingContainer isFetching={isFetching}>
             {children}
         </LoadingContainer>
-        { attributions && <Attribution data={attributions} /> }
-      </chartContext.Provider>
+        </chartContext.Provider>
+
+        <Flex justify="flex-end" align="flex-end" style={{marginRight:5}}>
+          { attributions && <Attribution data={attributions} /> }
+        </Flex>
     </Card>
 
     { toolbox && fullscreen &&
