@@ -193,7 +193,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         }
       >
         <chartContext.Provider value={{ chartRef, setchartRef, setData }}>
-          <LoadingContainer isFetching={isFetching} style={{ flexGrow: 1 }}>
+          <LoadingContainer isFetching={isFetching}>
             {children}
           </LoadingContainer>
         </chartContext.Provider>
