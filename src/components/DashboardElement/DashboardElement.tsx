@@ -1,27 +1,36 @@
-import { DownloadOutlined, FileImageOutlined, FullscreenOutlined, MoreOutlined } from "@ant-design/icons"
-import { Card, theme, Modal, Dropdown, MenuProps, Flex } from "antd"
+import {
+  DownloadOutlined,
+  FileImageOutlined,
+  FullscreenOutlined,
+  MoreOutlined,
+} from "@ant-design/icons";
+import { Card, theme, Modal, Dropdown, MenuProps, Flex } from "antd";
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
 import LoadingContainer from "../LoadingContainer/LoadingContainer";
 
 const { useToken } = theme;
-export const chartContext = createContext<any>({setchartRef:()=>{}, setData:()=>{}, data:undefined }); //Context permettant la remontée du ref Echarts enfant
+export const chartContext = createContext<any>({
+  setchartRef: () => {},
+  setData: () => {},
+  data: undefined,
+}); //Context permettant la remontée du ref Echarts enfant
 
-type DataFileType = 'csv' | 'xlsx' | 'ods';
+type DataFileType = "csv" | "xlsx" | "ods";
 
 //TODO integrer le composant loading container
 
-interface IDashboardElementProps{
-    title:string,
-    children:ReactNode,
-    isFetching?:boolean,
-    attributions?:SourceProps[],
-    toolbox?:boolean,
-    fullscreen?:boolean,
-    exportPNG?:boolean,
-    exportData?:boolean,
-  }
+interface IDashboardElementProps {
+  title: string;
+  children: ReactNode;
+  isFetching?: boolean;
+  attributions?: SourceProps[];
+  toolbox?: boolean;
+  fullscreen?: boolean;
+  exportPNG?: boolean;
+  exportData?: boolean;
+}
 
 /**
  * Composant permettant d'afficher un graphique ou une carte dans une card avec utilitaires (exports données, fullscreen, etc.)
@@ -37,61 +46,63 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   children,
   title,
   attributions,
-  isFetching=false,
-  toolbox=true,
-  fullscreen=true,
-  exportPNG=true,
-  exportData=true,
+  isFetching = false,
+  toolbox = true,
+  fullscreen = true,
+  exportPNG = true,
+  exportData = true,
 }) => {
-    const { token } = useToken();
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [chartRef, setchartRef] = useState(undefined);
-    const [data, setData] = useState(undefined);
-    const [requestDlImage, setRequestDlImage ] = useState(false);
-    const [requestDlData, setrequestDlData ] = useState<DataFileType | null>(null);
+  const { token } = useToken();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [chartRef, setchartRef] = useState(undefined);
+  const [data, setData] = useState(undefined);
+  const [requestDlImage, setRequestDlImage] = useState(false);
+  const [requestDlData, setrequestDlData] = useState<DataFileType | null>(null);
 
+  const { img64, exportImage } = useChartExport({ chartRef: chartRef });
 
-    const {img64, exportImage} = useChartExport({chartRef:chartRef})
+  const downloadImage = () => {
+    exportImage();
+    setRequestDlImage(true);
+  };
 
-    const downloadImage = () => {
-      exportImage()
-      setRequestDlImage(true)
-    }
-
-  useEffect(() => { //Proposer le téléchargement d'une image générée.
-    if(img64 && requestDlImage){
-      const link = document.createElement('a');
+  useEffect(() => {
+    //Proposer le téléchargement d'une image générée.
+    if (img64 && requestDlImage) {
+      const link = document.createElement("a");
       link.href = img64;
       link.download = `${title}.png`;
-      link.style.display = 'none';
+      link.style.display = "none";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      setRequestDlImage(false)
+      setRequestDlImage(false);
     }
-  }, [img64])
+  }, [img64]);
 
-  const downloadData = (filetype:DataFileType) => {
-    setrequestDlData(filetype)
-  }
+  const downloadData = (filetype: DataFileType) => {
+    setrequestDlData(filetype);
+  };
 
-  
   useEffect(() => {
-    if(data && requestDlData){
+    if (data && requestDlData) {
       const handleDl = async () => {
-        const XLSX = await import('xlsx');
+        const XLSX = await import("xlsx");
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'data'); // Caution : Ensure sheetname < 31 char and no special char
-        XLSX.writeFile(workbook, `${title}.${requestDlData}`, { compression: true });
-        setrequestDlData(null)
+        XLSX.utils.book_append_sheet(workbook, worksheet, "data"); // Caution : Ensure sheetname < 31 char and no special char
+        XLSX.writeFile(workbook, `${title}.${requestDlData}`, {
+          compression: true,
+        });
+        setrequestDlData(null);
       };
-      handleDl()
+      handleDl();
     }
-  },[requestDlData])
+  }, [requestDlData]);
 
   const fullscreenChildren = React.Children.map(children, (child, index) => {
-    if (index === 0 && React.isValidElement(child)) { // Que le premier enfant
+    if (index === 0 && React.isValidElement(child)) {
+      // Que le premier enfant
       //Possible de détecter ici s'il s'agit d'un graphique, ou d'une carte ?
       return React.cloneElement(child, {
         ...child.props?.style,
@@ -101,74 +112,116 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
     return child;
   });
 
+  const dd_items: MenuProps["items"] = [
+    {
+      key: "fullscreen",
+      label: (
+        <a onClick={() => setModalIsOpen(true)}>
+          <FullscreenOutlined /> Plein écran
+        </a>
+      ),
+      disabled: !fullscreen,
+    },
+    {
+      key: "export_img",
+      label: (
+        <a onClick={downloadImage}>
+          <FileImageOutlined /> PNG
+        </a>
+      ),
+      disabled: !chartRef || !exportPNG,
+    },
+    {
+      key: "export_data_csv",
+      label: (
+        <a onClick={() => downloadData("csv")}>
+          <DownloadOutlined /> CSV
+        </a>
+      ),
+      disabled: !data || !exportData,
+    },
+    {
+      key: "export_data_xls",
+      label: (
+        <a onClick={() => downloadData("xlsx")}>
+          <DownloadOutlined /> XLSX
+        </a>
+      ),
+      disabled: !data || !exportData,
+    },
+    {
+      key: "export_data_ods",
+      label: (
+        <a onClick={() => downloadData("ods")}>
+          <DownloadOutlined /> ODS
+        </a>
+      ),
+      disabled: !data || !exportData,
+    },
+  ];
 
-  const dd_items: MenuProps['items'] = [
-    {
-        key: 'fullscreen',
-        label: <a onClick={() => setModalIsOpen(true)}><FullscreenOutlined /> Plein écran</a>,
-        disabled: !fullscreen,
-    },
-    {
-      key: 'export_img',
-      label : <a onClick={downloadImage}><FileImageOutlined /> PNG</a>,
-      disabled: !chartRef || !exportPNG
-    },
-    {
-      key: 'export_data_csv',
-      label : <a onClick={() => downloadData('csv')}><DownloadOutlined /> CSV</a>,
-      disabled: !data || !exportData
-    },
-    {
-      key: 'export_data_xls',
-      label : <a onClick={() => downloadData('xlsx')}><DownloadOutlined /> XLSX</a>,
-      disabled: !data || !exportData
-    },
-    {
-      key: 'export_data_ods',
-      label : <a onClick={() => downloadData('ods')}><DownloadOutlined /> ODS</a>,
-      disabled: !data || !exportData
-    }
-  ]
-
-  const dropdown_toolbox = <Dropdown menu={{ items:dd_items }}>
-                                <a style={{color:token.colorTextBase}}><MoreOutlined style={{marginLeft:10}}/></a>
-                            </Dropdown>
+  const dropdown_toolbox = (
+    <Dropdown menu={{ items: dd_items }}>
+      <a style={{ color: token.colorTextBase }}>
+        <MoreOutlined style={{ marginLeft: 10 }} />
+      </a>
+    </Dropdown>
+  );
 
   return (
-  <>
-    <Card style={{height:'100%'}} title={
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{marginLeft:5}}>{title}</span>
-          <div style={{paddingRight:5, fontSize:16}}>{toolbox && dropdown_toolbox}</div>
-        </div>}>
-
-
-      <chartContext.Provider value={{chartRef, setchartRef, setData}}>
-        <LoadingContainer isFetching={isFetching}>
+    <>
+      <Card
+        style={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+        title={
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ marginLeft: 5 }}>{title}</span>
+            <div style={{ paddingRight: 5, fontSize: 16 }}>
+              {toolbox && dropdown_toolbox}
+            </div>
+          </div>
+        }
+      >
+        <chartContext.Provider value={{ chartRef, setchartRef, setData }}>
+          <LoadingContainer isFetching={isFetching} style={{ flexGrow: 1 }}>
             {children}
-        </LoadingContainer>
+          </LoadingContainer>
         </chartContext.Provider>
 
-        <Flex justify="flex-end" align="flex-end" style={{marginRight:5}}>
-          { attributions && <Attribution data={attributions} /> }
+        <Flex justify="flex-end" align="flex-end" style={{ marginRight: 5 }}>
+          {attributions && (
+            <div style={{ marginTop: "auto" }}>
+              <Attribution data={attributions} />
+            </div>
+          )}
         </Flex>
-    </Card>
+      </Card>
 
-    { toolbox && fullscreen &&
-      <Modal
-        forceRender={true}
-        title={title}
-        open={modalIsOpen}
-        onCancel={() => setModalIsOpen(false)}
-        onOk={() => setModalIsOpen(false)}
-        footer={null}
-        wrapClassName="modal-fullscreen"
+      {toolbox && fullscreen && (
+        <Modal
+          forceRender={true}
+          title={title}
+          open={modalIsOpen}
+          onCancel={() => setModalIsOpen(false)}
+          onOk={() => setModalIsOpen(false)}
+          footer={null}
+          wrapClassName="modal-fullscreen"
         >
-            {fullscreenChildren}
-            { attributions && <Attribution data={attributions} /> }
-      </Modal>
-    }
-  </>
+          {fullscreenChildren}
+          {attributions && <Attribution data={attributions} />}
+        </Modal>
+      )}
+    </>
   );
 };
 
