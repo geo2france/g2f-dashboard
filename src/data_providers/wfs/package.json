@@ -1,0 +1,31 @@
+{
+    "name":"refine-wfs",
+    "version":"1.0.0",
+    "private":"false",
+    "description":" WFS Data Provider for refine",
+    "repository":{
+        "type":"git",
+        "url":"git@github.com:geo2france/refine-wfs.git"
+    },
+    "author":{
+        "name":"Jean-Baptiste Desbas",
+        "email":"jb@desbas.fr",
+        "url":"jb.desbas.fr"
+    },
+    "licence":"MIT",
+    "keywords":[
+        "refine",
+        "dashboard",
+        "react",
+        "ogc",
+        "wfs",
+        "geoserver"
+    ],
+    "dependencies":{
+        "axios":"^1.6.2",
+        "query-string":"^7.1.1"
+    },
+    "peerDependencies":{
+        "@refinedev/core":"^4.49.0"
+    }
+}

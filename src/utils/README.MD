@@ -1,5 +1,17 @@
 # Hooks et fonctions
 
+### useApi
+
+Permet de récupérer des données depuis un [Dataprovider](/src/data_providers/).
+Paramètres : 
+- _resource_ (jeu de données)
+- _filters_
+- _sorters_
+- _pagination_
+- _meta_
+
+Retourne les données et différentes informations sur la requête, voir [useQuery](https://tanstack.com/query/v4/docs/framework/react/reference/useQuery)
+
 ### useChartEvents
 
 Le hook `useChartEvents` permet de définir des fonctions callback à executer au click (_onClick_) ou au survol (_onFocus_) des graphiques.
