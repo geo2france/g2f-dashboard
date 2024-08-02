@@ -95,3 +95,16 @@ order: "asc" | "desc";
 
 export type CrudFilters = CrudFilter[];
 export type CrudSorting = CrudSort[];
+
+
+export interface DataProvider<TData> {
+    getApiUrl: () => string;
+    getList: (params: {
+        resource: string;
+        filters?: CrudFilters;
+        pagination?: Pagination;
+        sorters?: CrudSorting;
+        meta?: any;
+    }) => Promise<TData>;
+}
+
