@@ -11,7 +11,7 @@ interface useApiProps { // TODO: Reprendre les types depuis le projet refine
 
 export const useApi = ({dataProvider, resource, filters, pagination, sorters, meta }:useApiProps) => (
     useQuery({
-        queryKey:[dataProvider.getApiUrl, resource],
+        queryKey:[dataProvider.getApiUrl, resource, filters, pagination, sorters, meta],
         queryFn: () => dataProvider.getList(
             {
                 resource:resource, 
