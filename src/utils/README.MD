@@ -9,11 +9,11 @@ Paramètres :
 - _sorters_
 - _pagination_
 - _meta_
-- _useQueryParams_ : pour passer directement des paramètres à `useQuery`
+- _staleTime_ 
 
-Retourne les données et différentes informations sur la requête, voir [useQuery](https://tanstack.com/query/v4/docs/framework/react/reference/useQuery)
+Retourne les données et différentes informations sur la requête, voir [useQuery](https://tanstack.com/query/v4/docs/framework/react/reference/useQuery). TODO : Détailler les variables les plus utiles plutôt que de renvoyer vers useQuery.
 
-Par défaut, le _staleTime_ est à 5 minutes. Cela permet d'alléger le serveur en s'assurant que la même requête n'est pas effectuée plus d'une fois par tranche de 5 minutes. Ce comportement peut-être modifié en surcouchant le paramètre avec _useQueryParams_.
+Par défaut, le _staleTime_ est à 5 minutes. Cela permet d'alléger le serveur en s'assurant que la même requête n'est pas effectuée plus d'une fois par tranche de 5 minutes.
 
 ### useChartEvents
 

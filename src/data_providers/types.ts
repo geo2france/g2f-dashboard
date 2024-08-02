@@ -96,8 +96,14 @@ order: "asc" | "desc";
 export type CrudFilters = CrudFilter[];
 export type CrudSorting = CrudSort[];
 
+export interface GetListResponse {
+    data: any[];
+    total: number;
+    geojson?: any;
+    [key: string]: any;
+}
 
-export interface DataProvider<TData> {
+export interface DataProvider {
     getApiUrl: () => string;
     getList: (params: {
         resource: string;
@@ -105,6 +111,6 @@ export interface DataProvider<TData> {
         pagination?: Pagination;
         sorters?: CrudSorting;
         meta?: any;
-    }) => Promise<TData>;
+    }) => Promise<GetListResponse>;
 }
 

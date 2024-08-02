@@ -1,23 +1,16 @@
 import { axiosInstance, generateSort, generateFilter } from "./utils";
 import { AxiosInstance } from "axios";
 import queryString from "query-string";
+import { DataProvider } from "../types";
 
 type MethodTypes = "get" | "delete" | "head" | "options";
 
 
-interface GetListParams { // Reprendre les types depuis le projet refine
-  resource: string;
-  pagination?: any;
-  filters?: any[];
-  sorters?: any[];
-  meta?: any; 
-}
-
 export const dataProvider = (
   apiUrl: string,
   httpClient: AxiosInstance = axiosInstance
-) => ({
-  getList: async ({ resource, pagination, filters, sorters, meta }:GetListParams) => {
+):DataProvider => ({
+  getList: async ({ resource, pagination, filters, sorters, meta }) => {
     const url = `${apiUrl}/`;
 
     const { current = 1, pageSize = 10, mode = "server" } = pagination ?? {};
@@ -60,8 +53,8 @@ export const dataProvider = (
     if (bbox !==''){
       query.bbox=bbox
     }
-    //@ts-ignore
-    const { data, headers } = await httpClient[requestMethod](
+
+    const { data, headers:_headers } = await httpClient[requestMethod](
       `${url}?${queryString.stringify({...query, sortby : undefined})}&sortby=${query.sortby}&`, //"le + de sortby ne doit pas être urlencode"
       {
         headers: headersFromMeta,
