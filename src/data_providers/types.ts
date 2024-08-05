@@ -95,3 +95,22 @@ order: "asc" | "desc";
 
 export type CrudFilters = CrudFilter[];
 export type CrudSorting = CrudSort[];
+
+export interface GetListResponse {
+    data: any[];
+    total: number;
+    geojson?: any;
+    [key: string]: any;
+}
+
+export interface DataProvider {
+    getApiUrl: () => string;
+    getList: (params: {
+        resource: string;
+        filters?: CrudFilters;
+        pagination?: Pagination;
+        sorters?: CrudSorting;
+        meta?: any;
+    }) => Promise<GetListResponse>;
+}
+

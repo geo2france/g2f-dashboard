@@ -61,6 +61,9 @@ export const dataProvider = (
       total: data.total,
     };
   },
-
+  
+  getApiUrl: () => {
+    return apiUrl;
+  },
  
 });
