@@ -4,6 +4,14 @@ Collection de composants React pour faciliter la création de tableaux de bords.
 
 Utilisés pour le [tableau de bord de l'Odema](https://github.com/geo2france/odema-dashboard).
 
+## Installation
+
+Version de développment :
+`npm install https://github.com/geo2france/g2f-dashboard/tarball/dev`
+
+Version stable :
+`npm install https://github.com/geo2france/g2f-dashboard/tarball/main`
+
 ## Components 
 
 - [DashboardElement](/src/components/DashboardElement/) ⭐
