@@ -5,8 +5,9 @@ export { useChartExport  } from "./utils/usechartexports";
 export { useApi } from "./utils/useApi";
 export { useChartData, useDashboardElement } from "./components/DashboardElement/hooks";
 
-// Helperss
+// Helpers
 export { BaseRecordToGeojsonPoint } from "./utils/baserecordtogeojsonpoint"
+export {cardStyles} from "./components/DashboardElement/DashboardElement"
 
 // Components
 import KeyFigure from "./components/KeyFigure/KeyFigure"

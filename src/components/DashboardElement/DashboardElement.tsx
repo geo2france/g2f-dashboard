@@ -4,7 +4,7 @@ import {
   FullscreenOutlined,
   MoreOutlined,
 } from "@ant-design/icons";
-import { Card, theme, Modal, Dropdown, MenuProps, Flex } from "antd";
+import { Card, theme, Modal, Dropdown, MenuProps, Flex, CardProps } from "antd";
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
@@ -19,7 +19,17 @@ export const chartContext = createContext<any>({
 
 type DataFileType = "csv" | "xlsx" | "ods";
 
-//TODO integrer le composant loading container
+export const cardStyles: CardProps["styles"] = { //Style plus compact
+  body: {
+    padding: "0px",
+  },
+  header: {
+    padding: "5px",
+    paddingLeft: "15px",
+    fontSize: 14,
+    minHeight: 35,
+  },
+};
 
 interface IDashboardElementProps {
   title: string;
@@ -171,7 +181,8 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   return (
     <>
       <Card
-        style={{
+        styles={cardStyles}
+        style={{ //Nécessaire pour afficher correctement les graphiques en homogénisant la hauteur des cards
           height: "100%",
           display: "flex",
           flexDirection: "column",
@@ -185,8 +196,8 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
               alignItems: "center",
             }}
           >
-            <span style={{ marginLeft: 5 }}>{title}</span>
-            <div style={{ paddingRight: 5, fontSize: 16 }}>
+            <span>{title}</span>
+            <div style={{ marginRight: 5, fontSize: 16 }}>
               {toolbox && dropdown_toolbox}
             </div>
           </div>
