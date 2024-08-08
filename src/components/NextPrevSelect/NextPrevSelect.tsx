@@ -24,6 +24,10 @@ const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
 }) => {
   const [current_value, setCurrent_value] = useState<string | number | undefined>(value);
 
+  useEffect(() => {
+    setCurrent_value(value)
+  },[value])
+
   const current_index = options?.findIndex((o) => o.value == current_value);
 
   const next = () =>
@@ -42,15 +46,14 @@ const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
   const isLast = () =>
     reverse ? current_index == 0 : current_index == options.length - 1;
 
-
-  useEffect(() => {
-    current_value && onChange && onChange(current_value.toString());
-  }, [current_value])
-
+  const handleChange = (v:string | number) => {
+    setCurrent_value(v);
+    onChange && onChange(v);
+  }
 
   return (
     <Flex style={style}>
-      <Button className="nextPrevSelect-left-button" onClick={() => setCurrent_value(previous())} disabled={isFirst()}>
+      <Button className="nextPrevSelect-left-button" onClick={() => handleChange(previous())} disabled={isFirst()}>
       <CaretLeftOutlined />
       </Button>
       <Select
@@ -59,9 +62,9 @@ const NextPrevSelect: React.FC<NextPrevSelectProps> = ({
         style={style}
         value={current_value}
         defaultValue={defaultValue}
-        onChange={setCurrent_value}
+        onChange={handleChange}
       />
-      <Button className="nextPrevSelect-right-button" onClick={() => setCurrent_value(next())} disabled={isLast()}>
+      <Button className="nextPrevSelect-right-button" onClick={() => handleChange(next())} disabled={isLast()}>
       <CaretRightOutlined />
       </Button>
     </Flex>
