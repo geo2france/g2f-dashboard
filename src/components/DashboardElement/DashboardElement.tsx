@@ -181,6 +181,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   return (
     <>
       <Card
+        className="dashboard-element"
         styles={cardStyles}
         style={{ //Nécessaire pour afficher correctement les graphiques en homogénisant la hauteur des cards
           height: "100%",
