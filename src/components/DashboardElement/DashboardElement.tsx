@@ -5,13 +5,16 @@ import {
   MoreOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
-import { Card, theme, Modal, Dropdown, MenuProps, Flex, CardProps, Button, Popover } from "antd";
-import React, { ReactNode, createContext, useEffect, useState } from "react";
+import { Card, theme, Modal, Dropdown, MenuProps, Flex, CardProps, Button, Popover, Typography } from "antd";
+import React, { ReactElement, ReactNode, createContext, useEffect, useState } from "react";
 import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
 import LoadingContainer from "../LoadingContainer/LoadingContainer";
 
 const { useToken } = theme;
+
+const { Text } = Typography;
+
 export const chartContext = createContext<any>({
   setchartRef: () => {},
   setData: () => {},
@@ -41,7 +44,7 @@ interface IDashboardElementProps {
   fullscreen?: boolean;
   exportPNG?: boolean;
   exportData?: boolean;
-  description?: string; 
+  description?: ReactElement | string;
 }
 
 const DashboardElement: React.FC<IDashboardElementProps> = ({
@@ -207,7 +210,14 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
             </div>
           )}
           {description && (
-            <Popover content={<p style={{ maxWidth: 800 }}>{description}</p>} >
+            <Popover content={
+                  <div style={{ maxWidth: 800 }}>
+                    {typeof description === "string" ? 
+                      <Text italic type="secondary"> {description} </Text> 
+                      : <>{description}</> }
+                  </div>
+                } 
+            >
               <Button type="link" icon={<InfoCircleOutlined />}>
                 Info
               </Button>
