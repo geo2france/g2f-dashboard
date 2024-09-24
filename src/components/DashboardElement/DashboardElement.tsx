@@ -5,6 +5,7 @@ import {
   MoreOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
+import { HiQuestionMarkCircle } from "react-icons/hi2";
 import { Card, theme, Modal, Dropdown, MenuProps, Flex, CardProps, Button, Popover, Typography } from "antd";
 import React, { ReactElement, ReactNode, createContext, useEffect, useState } from "react";
 import Attribution, { SourceProps } from "../Attributions/Attributions";
@@ -218,9 +219,10 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
                   </div>
                 } 
             >
-              <Button type="link" icon={<InfoCircleOutlined />}>
-                Info
-              </Button>
+              <Button 
+                type="link" 
+                icon={<HiQuestionMarkCircle />} 
+                style={{fontSize:"150%"}}/>
             </Popover>
           )}
         </Flex>
