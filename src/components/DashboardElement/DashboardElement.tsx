@@ -3,7 +3,6 @@ import {
   FileImageOutlined,
   FullscreenOutlined,
   MoreOutlined,
-  InfoCircleOutlined,
 } from "@ant-design/icons";
 import { HiQuestionMarkCircle } from "react-icons/hi2";
 import { Card, theme, Modal, Dropdown, MenuProps, Flex, CardProps, Button, Popover, Typography } from "antd";
