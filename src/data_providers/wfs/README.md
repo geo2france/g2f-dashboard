@@ -1,5 +1,11 @@
 # wfs-data-provider
 
+## Fournisseurs de données (non exhaustif)
+
+- [Geo2France](https://www.geo2france.fr/datahub/)
+- [Métropole Européenne de Lille](https://data.lillemetropole.fr/)
+- [DataGrandEst](https://www.datagrandest.fr/data4citizen)
+
 ## CRUD
 
 Only read operations are supported (pagination, sorters, getlist, getone, getmany).
