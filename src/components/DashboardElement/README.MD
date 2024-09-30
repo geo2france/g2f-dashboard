@@ -20,6 +20,7 @@ Pour fonctionner correctement, le composant enfant doit exporter la référence 
 - `fullscreen` : Booléen pour autoriser le mode plein-écran
 - `exportPNG` : Booléen pour autoriser l'export en format image
 - `exportData` : Booléen pour autoriser l'export de données
+- `Licenses` : Les licences appliquées au graphique (exemple : ['CC','SA']). Par défaut ['CC','BY'].
 
 
 
