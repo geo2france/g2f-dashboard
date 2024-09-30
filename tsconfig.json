@@ -15,7 +15,7 @@
       "isolatedModules": true,
       "noEmit": true,
       "jsx": "react-jsx",
-      "types": ["vite-plugin-svgr/client"],
+      "types": ["vite-plugin-svgr/client", "jest", "@testing-library/jest-dom"],
       "noUnusedLocals": true
     },
     "include": ["src","src/custom.d.ts"],

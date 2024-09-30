@@ -7,7 +7,7 @@ export { useChartData, useDashboardElement } from "./components/DashboardElement
 
 // Helpers
 export { BaseRecordToGeojsonPoint } from "./utils/baserecordtogeojsonpoint"
-export {cardStyles} from "./components/DashboardElement/DashboardElement"
+export {cardStyles} from "./utils/cardStyles"
 
 // Components
 import KeyFigure from "./components/KeyFigure/KeyFigure"

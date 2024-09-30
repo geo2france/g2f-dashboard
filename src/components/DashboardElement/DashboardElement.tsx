@@ -5,11 +5,12 @@ import {
   MoreOutlined,
 } from "@ant-design/icons";
 import { HiQuestionMarkCircle } from "react-icons/hi2";
-import { Card, theme, Modal, Dropdown, MenuProps, Flex, CardProps, Button, Popover, Typography } from "antd";
+import { Card, theme, Modal, Dropdown, MenuProps, Flex, Button, Popover, Typography } from "antd";
 import React, { ReactElement, ReactNode, createContext, useEffect, useState } from "react";
 import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
 import LoadingContainer from "../LoadingContainer/LoadingContainer";
+import { cardStyles } from "../../utils/cardStyles";
 
 const { useToken } = theme;
 
@@ -22,18 +23,6 @@ export const chartContext = createContext<any>({
 });
 
 type DataFileType = "csv" | "xlsx" | "ods";
-
-export const cardStyles: CardProps["styles"] = {
-  body: {
-    padding: "0px",
-  },
-  header: {
-    padding: "5px",
-    paddingLeft: "15px",
-    fontSize: 14,
-    minHeight: 35,
-  },
-};
 
 interface IDashboardElementProps {
   title: string;
