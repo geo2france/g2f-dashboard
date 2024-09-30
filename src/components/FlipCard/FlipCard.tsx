@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { Button, Card, Typography } from "antd"
 import { CSSProperties, ReactElement, useState } from "react"
 import { BsInfoCircle, BsInfoCircleFill } from "react-icons/bs"
-import { cardStyles } from '../DashboardElement/DashboardElement';
+import { cardStyles } from "../../utils/cardStyles";
 
 const { Text } = Typography;
 
@@ -40,6 +40,7 @@ const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => 
               onClick={toggleFlipped}
               shape="circle"
               style={{ position: "absolute", right: 0, top: 0 }}
+              aria-label="info"
             >
               {flipped ? <BsInfoCircleFill /> : <BsInfoCircle />}
             </Button>
