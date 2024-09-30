@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "tsc": "tsc",
-    "test": "jest --watch"
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "alasql": "^4.5.0",
