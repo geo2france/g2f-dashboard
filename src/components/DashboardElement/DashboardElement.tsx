@@ -11,6 +11,7 @@ import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
 import LoadingContainer from "../LoadingContainer/LoadingContainer";
 import { cardStyles } from "../../utils/cardStyles";
+import { License } from "../../types";
 
 const { useToken } = theme;
 
@@ -34,6 +35,7 @@ interface IDashboardElementProps {
   exportPNG?: boolean;
   exportData?: boolean;
   description?: ReactElement | string;
+  licenses?:License[]
 }
 
 const DashboardElement: React.FC<IDashboardElementProps> = ({
@@ -46,6 +48,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   exportPNG = true,
   exportData = true,
   description, 
+  licenses = ['CC', 'BY']
 }) => {
   const { token } = useToken();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -195,7 +198,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         <Flex justify="flex-end" align="flex-end" style={{ marginRight: 5 }}>
           {attributions && (
             <div style={{ marginTop: "auto" }}>
-              <Attribution data={attributions} />
+              <Attribution licenses={licenses} data={attributions} />
             </div>
           )}
           {description && (
