@@ -1,0 +1,1 @@
+module.exports = 'mocked-svg-url'; // Retourne une URL mock
