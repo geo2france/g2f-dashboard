@@ -4,22 +4,26 @@ import {
   FullscreenOutlined,
   MoreOutlined,
 } from "@ant-design/icons";
-import { Card, theme, Modal, Dropdown, MenuProps, Flex } from "antd";
-import React, { ReactNode, createContext, useEffect, useState } from "react";
+import { HiQuestionMarkCircle } from "react-icons/hi2";
+import { Card, theme, Modal, Dropdown, MenuProps, Flex, Button, Popover, Typography } from "antd";
+import React, { ReactElement, ReactNode, createContext, useEffect, useState } from "react";
 import Attribution, { SourceProps } from "../Attributions/Attributions";
 import { useChartExport } from "../../utils/usechartexports";
 import LoadingContainer from "../LoadingContainer/LoadingContainer";
+import { cardStyles } from "../../utils/cardStyles";
+import { License } from "../../types";
 
 const { useToken } = theme;
+
+const { Text } = Typography;
+
 export const chartContext = createContext<any>({
   setchartRef: () => {},
   setData: () => {},
   data: undefined,
-}); //Context permettant la remontée du ref Echarts enfant
+});
 
 type DataFileType = "csv" | "xlsx" | "ods";
-
-//TODO integrer le composant loading container
 
 interface IDashboardElementProps {
   title: string;
@@ -30,18 +34,10 @@ interface IDashboardElementProps {
   fullscreen?: boolean;
   exportPNG?: boolean;
   exportData?: boolean;
+  description?: ReactElement | string;
+  licenses?:License[]
 }
 
-/**
- * Composant permettant d'afficher un graphique ou une carte dans une card avec utilitaires (exports données, fullscreen, etc.)
- * @param {object} props - Les propriétés du composant.
- * @param {React.ReactNode} props.children - Les éléments enfants à afficher à l'intérieur de la card.
- * @param {string} props.title - Le titre de la carte.
- * @param {SourceProps[]} [props.attributions] - Les attributions des données affichées dans la card.
- * @param {boolean} [props.toolbox=true] - Indique si la boîte à outils (toolbox) doit être affichée ou non. Par défaut, elle est affichée.
- * @param {boolean} [props.fullscreen=true] - Autoriser l'affichage en plein écran. Autorisé par défaut.
- * @returns {React.ReactNode} - Le composant de la card avec les éléments enfants et les utilitaires.
- */
 const DashboardElement: React.FC<IDashboardElementProps> = ({
   children,
   title,
@@ -51,6 +47,8 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   fullscreen = true,
   exportPNG = true,
   exportData = true,
+  description, 
+  licenses = ['CC', 'BY']
 }) => {
   const { token } = useToken();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -67,7 +65,6 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   };
 
   useEffect(() => {
-    //Proposer le téléchargement d'une image générée.
     if (img64 && requestDlImage) {
       const link = document.createElement("a");
       link.href = img64;
@@ -90,7 +87,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         const XLSX = await import("xlsx");
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "data"); // Caution : Ensure sheetname < 31 char and no special char
+        XLSX.utils.book_append_sheet(workbook, worksheet, "data");
         XLSX.writeFile(workbook, `${title}.${requestDlData}`, {
           compression: true,
         });
@@ -102,8 +99,6 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
 
   const fullscreenChildren = React.Children.map(children, (child, index) => {
     if (index === 0 && React.isValidElement(child)) {
-      // Que le premier enfant
-      //Possible de détecter ici s'il s'agit d'un graphique, ou d'une carte ?
       return React.cloneElement(child, {
         ...child.props?.style,
         style: { height: "80vh" },
@@ -171,6 +166,8 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   return (
     <>
       <Card
+        className="dashboard-element"
+        styles={cardStyles}
         style={{
           height: "100%",
           display: "flex",
@@ -185,8 +182,8 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
               alignItems: "center",
             }}
           >
-            <span style={{ marginLeft: 5 }}>{title}</span>
-            <div style={{ paddingRight: 5, fontSize: 16 }}>
+            <span>{title}</span>
+            <div style={{ marginRight: 5, fontSize: 16 }}>
               {toolbox && dropdown_toolbox}
             </div>
           </div>
@@ -201,8 +198,23 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         <Flex justify="flex-end" align="flex-end" style={{ marginRight: 5 }}>
           {attributions && (
             <div style={{ marginTop: "auto" }}>
-              <Attribution data={attributions} />
+              <Attribution licenses={licenses} data={attributions} />
             </div>
+          )}
+          {description && (
+            <Popover content={
+                  <div style={{ maxWidth: 800 }}>
+                    {typeof description === "string" ? 
+                      <Text italic type="secondary"> {description} </Text> 
+                      : <>{description}</> }
+                  </div>
+                } 
+            >
+              <Button 
+                type="link" 
+                icon={<HiQuestionMarkCircle />} 
+                style={{fontSize:"150%"}}/>
+            </Popover>
           )}
         </Flex>
       </Card>

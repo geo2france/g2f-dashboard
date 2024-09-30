@@ -14,11 +14,13 @@ Pour fonctionner correctement, le composant enfant doit exporter la référence 
 
 - `title` : Titre de l'élément
 - `attributions` : Crédits, sous la forme `[{name: 'Source 1', url: 'url1'}, {name: 'Source 2', url: 'url2'},{...}]`
+- `description` : Description et notes méthodo. Il s'agit d'un texte brut ou formaté (avec balises HTML).
 - `isFetching` : Booléen qui indique si les données sont en train d'être télécharger (floute le graphique si le chargement dépasse les 500ms)
 - `toolbox` : Booléen pour afficher/masquer le menu contextuel permettant l'affichage plein écran et les exports de données/images
 - `fullscreen` : Booléen pour autoriser le mode plein-écran
 - `exportPNG` : Booléen pour autoriser l'export en format image
 - `exportData` : Booléen pour autoriser l'export de données
+- `Licenses` : Les licences appliquées au graphique (exemple : ['CC','SA']). Par défaut ['CC','BY'].
 
 
 

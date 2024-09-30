@@ -13,20 +13,63 @@ Paramètres :
 
 Retourne les données et différentes informations sur la requête, voir [useQuery](https://tanstack.com/query/v4/docs/framework/react/reference/useQuery). TODO : Détailler les variables les plus utiles plutôt que de renvoyer vers useQuery.
 
-Par défaut, le _staleTime_ est à 5 minutes. Cela permet d'alléger le serveur en s'assurant que la même requête n'est pas effectuée plus d'une fois par tranche de 5 minutes.
+Par défaut, le _staleTime_ est à 5 minutes. Cela permet d'alléger le serveur en s'assurant que la même requête n'est pas effectuée plus d'une fois par tranche de 5 minutes (sauf si l'utilisateur rafraîchit manuellement la page).
+
+Exemple : 
+```tsx 
+const ademe_opendataProvider = DatafairProvider("https://data.ademe.fr/data-fair/api/v1/datasets") ;
+
+const {data, isFetching} = useApi({
+            resource:"sinoe-(r)-destination-des-dma-collectes-par-type-de-traitement/lines",
+            dataProvider:ademe_opendataProvider,
+            pagination: {
+                pageSize: 2000,
+            },
+            filters:[
+                {
+                    field:"C_REGION",
+                    operator:"eq",
+                    value:'32'
+                },
+                {
+                    field:"L_TYP_REG_DECHET",
+                    operator:"ne",
+                    value:'Déblais et gravats'
+                }
+            ]
+    });
+
+console.log(data.data);
+```
 
 ### useChartEvents
 
 Le hook `useChartEvents` permet de définir des fonctions callback à executer au click (_onClick_) ou au survol (_onFocus_) des graphiques.
 Le callback reçoit comme paramètres un objet qui contient des informations sur l'élément qui l'a déclanché (nom de la série, données, etc.). La structure de l'objet varie selon le type de graphique.
+La fonction _onFocus_ est également appelée lorsque le pointeur **quitte** l'élément (_mouse-out_) avec un paramètre _null_.
 
 Généralement, le callback sera une fonction qui va modifier un état (_state_) du parent (_setState_).
 
-TODO : Exemple concret montrant comment l'année cliquée sur le graphique est remontée à la page.
 
 Exemple :
-```typescript
-    useChartEvents({chartRef, onFocus})
+```tsx
+
+ const [focus, setFocus] = useState<string | undefined>(undefined) // Etat qui stock le nom de la catégorie sur laquelle le focus est porté
+
+
+ const MyChart: React.FC = ({onFocus}) => {
+    useChartEvents({chartRef:chartRef, onFocus:onFocus}) // Lors du survol, la fonction onFocus est appelée et met à jour l'etat.
+
+    [...]
+    return(
+        <ReactECharts
+        option={option} ref={chartRef} style={{ ...style, marginTop:"0px"}}/>
+    )
+ }
+
+
+ <MyChart 
+    onFocus={(e) => setFocus(e?.name)} />
 ```
 
 ### useChartActionHightlight

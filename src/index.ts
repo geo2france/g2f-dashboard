@@ -5,8 +5,9 @@ export { useChartExport  } from "./utils/usechartexports";
 export { useApi } from "./utils/useApi";
 export { useChartData, useDashboardElement } from "./components/DashboardElement/hooks";
 
-// Helperss
+// Helpers
 export { BaseRecordToGeojsonPoint } from "./utils/baserecordtogeojsonpoint"
+export {cardStyles} from "./utils/cardStyles"
 
 // Components
 import KeyFigure from "./components/KeyFigure/KeyFigure"
@@ -15,8 +16,9 @@ import LoadingContainer  from "./components/LoadingContainer/LoadingContainer"
 import FlipCard from "./components/FlipCard/FlipCard"
 import Attribution from "./components/Attributions/Attributions"
 import NextPrevSelect from "./components/NextPrevSelect/NextPrevSelect"
+import Control from "./components/Control/Control";
 
-export { KeyFigure, DashboardElement, LoadingContainer, FlipCard, Attribution, NextPrevSelect } 
+export { KeyFigure, DashboardElement, LoadingContainer, FlipCard, Attribution, NextPrevSelect, Control } 
 
 
 // DataProviders

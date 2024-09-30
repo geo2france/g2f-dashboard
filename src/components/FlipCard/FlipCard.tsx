@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { Button, Card, Typography } from "antd"
 import { CSSProperties, ReactElement, useState } from "react"
 import { BsInfoCircle, BsInfoCircleFill } from "react-icons/bs"
+import { cardStyles } from "../../utils/cardStyles";
 
 const { Text } = Typography;
 
@@ -23,7 +24,7 @@ const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => 
 
     const height = cardARef.current ? cardARef.current.clientHeight : undefined; // Forcer la hauteur à celle de la card "Recto"
 
-    const cardStyle: CSSProperties = {
+    const FlipCardStyle: CSSProperties = {
         position: "absolute",
         transition: "transform 0.8s",
         backfaceVisibility: "hidden",
@@ -39,6 +40,7 @@ const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => 
               onClick={toggleFlipped}
               shape="circle"
               style={{ position: "absolute", right: 0, top: 0 }}
+              aria-label="info"
             >
               {flipped ? <BsInfoCircleFill /> : <BsInfoCircle />}
             </Button>
@@ -50,7 +52,8 @@ const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => 
       <div style={{ position: "relative", height: height }}> 
         <Card
           title={titleElement}
-          style={{ transform: flipped ? "rotateY(180deg)" : "", ...cardStyle }}
+          style={{ transform: flipped ? "rotateY(180deg)" : "", ...FlipCardStyle }}
+          styles={cardStyles} //Default g2f-dashboard style (header & body)
           ref={cardARef}
         >
           {children}
@@ -61,7 +64,8 @@ const FlipCard: React.FC<FlipCardProps> = ({ title, information, children }) => 
             transform: !flipped ? "rotateY(180deg)" : "", 
             height: height ,
             overflow:"auto",
-            ...cardStyle}} 
+            ...FlipCardStyle}} 
+          styles={cardStyles} //Default g2f-dashboard style (header & body)
         >
           {typeof information === "string" ? (
             <div style={{ margin: 10 }}>
