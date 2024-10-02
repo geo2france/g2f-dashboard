@@ -172,6 +172,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         styles={cardStyles}
         style={{
           height: "100%",
+          minHeight:300,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
