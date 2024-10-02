@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
-import { Empty, Spin } from 'antd';
+import { Empty, Spin, theme } from 'antd';
+import { PiEmptyFill } from "react-icons/pi";
 
 interface LoadingContainerProps {
     isFetching: boolean;
@@ -19,6 +20,7 @@ interface LoadingContainerProps {
  */
 const LoadingContainer:React.FC<LoadingContainerProps> = ({isFetching, children, blurRadius='10px', delay=500, noData}) =>
 {
+    const { token } = theme.useToken();
     const [blur, setBlur] = useState(false);
     const timeoutRef = useRef<number | null>(null); //Le timeout permet que le blur ne s'affiche pas si le chargement est plus court que delay (éviter effet clignotement)
 
@@ -42,7 +44,11 @@ const LoadingContainer:React.FC<LoadingContainerProps> = ({isFetching, children,
                     display : noData ? "none" : undefined} }>
                 {  children } 
             </div>
-            {noData && <Empty style={{position:"absolute", top:"50%", right:"50%", transform: "translate(50%, -50%)"}} />}
+            {noData && <Empty 
+                        style={{position:"absolute", top:"50%", right:"50%", transform: "translate(50%, -50%)"}} 
+                        description="Pas de donnée disponible"
+                        image={<PiEmptyFill size={80} color={token.colorPrimary}/>} />
+            }
             { blur ? <Spin size="large" style={{position:'absolute', left:'50%', top:'50%' }}/> : <></>}
         </>
     )
