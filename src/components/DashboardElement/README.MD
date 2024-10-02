@@ -37,6 +37,17 @@ Exemple :
     useChartData({data:data_chart, dependencies:[year]})
 ```
 
+## Pas de données
+
+Avec le hook `useNoData`, il est possible, depuis le composant de dataviz/carto, d'indiquer qu'une donnée n'est pas disponible. Cela aura pour effet de remplacer
+le composant par une image "No Data".
+
+Exemple :
+```typescript
+    // Généralement, on utilise un test simple sur le tableau de données
+    useNoData(data_array.length<1);
+```
+
 
 ## Export en image :
 

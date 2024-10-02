@@ -1,9 +1,10 @@
 import React from 'react'
 import { useEffect, useRef, useState } from "react";
-import { Spin } from 'antd';
+import { Empty, Spin } from 'antd';
 
 interface LoadingContainerProps {
     isFetching: boolean;
+    noData?:boolean;
     children: React.ReactNode;
     blurRadius?: string;
     delay?: number;
@@ -16,7 +17,7 @@ interface LoadingContainerProps {
  * @param blurRadius Rayon du floutage (par défaut : 10px)
  * @param delay Délai en millisecondes avant d'appliquer le flou lors du chargement (par défaut : 500ms)
  */
-const LoadingContainer:React.FC<LoadingContainerProps> = ({isFetching, children, blurRadius='10px', delay=500}) =>
+const LoadingContainer:React.FC<LoadingContainerProps> = ({isFetching, children, blurRadius='10px', delay=500, noData}) =>
 {
     const [blur, setBlur] = useState(false);
     const timeoutRef = useRef<number | null>(null); //Le timeout permet que le blur ne s'affiche pas si le chargement est plus court que delay (éviter effet clignotement)
@@ -36,9 +37,12 @@ const LoadingContainer:React.FC<LoadingContainerProps> = ({isFetching, children,
 
     return(
         <>
-            <div style={ blur ? {filter: `blur(${blurRadius})`} : {}}>
-                {children}
+            <div style={ {
+                    filter: blur ? `blur(${blurRadius})` : undefined,
+                    display : noData ? "none" : undefined} }>
+                {  children } 
             </div>
+            {noData && <Empty style={{position:"absolute", top:"50%", right:"50%", transform: "translate(50%, -50%)"}} />}
             { blur ? <Spin size="large" style={{position:'absolute', left:'50%', top:'50%' }}/> : <></>}
         </>
     )

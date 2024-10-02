@@ -41,3 +41,18 @@ export const useChartData = ({data, dependencies=[]}:useChartDataProps) => {
     }
   }, dependencies);
 }
+
+
+/**
+ * Hook permettant d'indiquer au DashboardElement que aucune données n'est disponible
+ * @param {boolean} noData - True si aucune donnée n'est disponible.
+ */
+export const useNoData = (noData:boolean) => {
+  const { setNodata } = useContext(chartContext); 
+
+  useEffect(() => {
+      setNodata(noData);
+      console.log("hook", noData);
+  },[noData]) // !
+
+}
