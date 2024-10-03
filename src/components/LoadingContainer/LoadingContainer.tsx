@@ -46,7 +46,7 @@ const LoadingContainer:React.FC<LoadingContainerProps> = ({isFetching, children,
             </div>
             {noData && <Empty 
                         style={{position:"absolute", top:"50%", right:"50%", transform: "translate(50%, -50%)"}} 
-                        description="Pas de donnée disponible"
+                        description="Pas de données disponibles"
                         image={<PiEmptyFill size={80} color={token.colorPrimary}/>} />
             }
             { blur ? <Spin size="large" style={{position:'absolute', left:'50%', top:'50%' }}/> : <></>}
