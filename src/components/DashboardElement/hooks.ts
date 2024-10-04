@@ -33,13 +33,11 @@ export interface useChartDataProps {
   dependencies?:any[]
 }
 export const useChartData = ({data, dependencies=[]}:useChartDataProps) => {
-  const { setData, data:contextdata, setNodata } = useContext(chartContext); 
+  const { setData, setNodata } = useContext(chartContext); 
   useEffect(() => {
-    if (data && contextdata != data) {
       setData(data);
-      data.length < 1 ? setNodata(true) : setNodata(false)
-    }
-  }, [data,...dependencies]); //Est-ce que dependencies est vraiment nécessaire ?
+      data === undefined || data.length < 1 ? setNodata(true) : setNodata(false)
+  }, dependencies);
 }
 
 
