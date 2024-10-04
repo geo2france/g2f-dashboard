@@ -20,8 +20,7 @@ const { Text } = Typography;
 export const chartContext = createContext<any>({
   setchartRef: () => {},
   setData: () => {},
-  setNodata: () => {},
-  data: undefined,
+  setNodata: () => {}
 });
 
 type DataFileType = "csv" | "xlsx" | "ods";
