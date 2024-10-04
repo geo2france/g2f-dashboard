@@ -2,13 +2,17 @@
 
 Le composant [DashboardElement](src/components/dashboard_element/index.tsx) peut-être utilisé pour ajouter des fonctionnalités à un _element_ (graphique ou cartographique) de tableau de bord.
 Il ajoute :
-- Une _card_ servant de conteneur, avec titre et crédit.
+- Une _card_ servant de conteneur, avec titre, crédit et licences.
 - Un menu contextuel permettant à l'utilisateur de :
     - Afficher le contenu en plein écran
     - Exporter le contenu en format image (png)
-- Un gestion du chargement de données
+    - Exporter les données (csv, xlsx, ods)
+- Un gestion du chargement de données et des données non disponibles
+- Une possibilité d'écrire une note méthodologique
 
 Pour fonctionner correctement, le composant enfant doit exporter la référence de l'élément graphique (_echart_ ou _maplibre_) à l'aide du hook `useDashboardElement`.
+
+![Capture d'écran du composant Dashboard Element](./dashboardelement_screen.png)
 
 ## Propriétés
 
