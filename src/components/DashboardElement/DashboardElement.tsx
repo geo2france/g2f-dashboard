@@ -20,7 +20,7 @@ const { Text } = Typography;
 export const chartContext = createContext<any>({
   setchartRef: () => {},
   setData: () => {},
-  data: undefined,
+  setNodata: () => {}
 });
 
 type DataFileType = "csv" | "xlsx" | "ods";
@@ -54,6 +54,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [chartRef, setchartRef] = useState(undefined);
   const [data, setData] = useState(undefined);
+  const [nodata, setNodata] = useState(false);
   const [requestDlImage, setRequestDlImage] = useState(false);
   const [requestDlData, setrequestDlData] = useState<DataFileType | null>(null);
 
@@ -170,6 +171,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         styles={cardStyles}
         style={{
           height: "100%",
+          minHeight:300,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -189,8 +191,8 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
           </div>
         }
       >
-        <chartContext.Provider value={{ chartRef, setchartRef, setData }}>
-          <LoadingContainer isFetching={isFetching}>
+        <chartContext.Provider value={{ chartRef, setchartRef, setData, setNodata }}>
+          <LoadingContainer isFetching={isFetching} noData={nodata}>
             {children}
           </LoadingContainer>
         </chartContext.Provider>
