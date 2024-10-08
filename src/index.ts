@@ -24,8 +24,10 @@ export { KeyFigure, DashboardElement, LoadingContainer, FlipCard, Attribution, N
 // DataProviders
 import { dataProvider as WfsProvider } from "./data_providers/wfs";
 import { dataProvider as DatafairProvider } from "./data_providers/datafair";
+import { dataProvider as OGCApiProvider } from "./data_providers/ogc_api_features";
 
-export {WfsProvider, DatafairProvider}
+
+export {WfsProvider, DatafairProvider, OGCApiProvider}
 
 
 // Types
