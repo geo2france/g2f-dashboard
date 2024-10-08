@@ -30,6 +30,7 @@ export const generateFilter = (filters?: any[]) => {
             case "in":
               return `(${filter.value.map((i:string) => `'${i}'`).join(',')})`
             default:
+              //Attention : pas de ' si value est numérique ! A corriger #47
               return `'${filter.value}'`
           }})()
           array_filter.push( `${filter.field} ${mappedOperator} ${value}`)
