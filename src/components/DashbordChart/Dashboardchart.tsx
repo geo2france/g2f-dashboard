@@ -11,12 +11,13 @@ interface IDashboardChartProps {
     chart_type?: EChartsSeriesTypes;  // Utiliser directement le type de SeriesOption
     sql? : string;
     echarts_option?: any;
+    reverse_axies?:boolean
 }
 
 
-// Les données doivent être de la forme {x :   y : }
+// Les données doivent être de la forme {axeA :   axeB : } ?
 
-const DashboardChart: React.FC<IDashboardChartProps> = ({data, chart_type='line', sql}) => {
+const DashboardChart: React.FC<IDashboardChartProps> = ({data, chart_type='line', reverse_axies=false, sql}) => {
     const chartRef = useRef<any>();
     useDashboardElement({chartRef})
 
@@ -24,21 +25,36 @@ const DashboardChart: React.FC<IDashboardChartProps> = ({data, chart_type='line'
 
     useChartData({data:data_xy})
 
-    const xtype = typeof data_xy[0].x === 'number' ? 'value' : 'category';
-    const ytype = typeof data_xy[0].y === 'number' ? 'value' : 'category';
+    const keys = Object.keys(data_xy[0]);
+
+    const axis0 = {
+        type: typeof data_xy[0][keys[0]] === 'number' ? 'value' : 'category',
+        name: keys[0]
+    }
+
+    const axis1 = {
+        type: typeof data_xy[0][keys[1]] === 'number' ? 'value' : 'category',
+        name: keys[1]
+    }
 
     const options:EChartsOption = {
         series:[
             {
                 type:chart_type,
-                data:data_xy.map((e:any) => [e.x, e.y])
-            }
+                data:data_xy.map((e:any) => 
+                    reverse_axies ? 
+                        [e[keys[1]], e[keys[0]]] 
+                        : [e[keys[0]], e[keys[1]]]
+                )
+            }  
         ],
+        //@ts-ignore
         xAxis:{
-            type:xtype
+            ...reverse_axies ? axis1 : axis0
         },
+        //@ts-ignore
         yAxis:{
-            type:ytype
+            ...reverse_axies ? axis0 : axis1
         }
     }
     return (
