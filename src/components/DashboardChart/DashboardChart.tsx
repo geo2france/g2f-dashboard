@@ -10,7 +10,9 @@ interface IDashboardChartProps {
     data?: any[];
     chart_type?: EChartsSeriesTypes;  // Utiliser directement le type de SeriesOption
     sql? : string;
-    echarts_option?: any;
+    echarts_option?: any; 
+            // TODO voir si besoin de deepmerge, le spread operator risque de ne pas suffire. 
+            // ou utilisé un spread sur chaque element de niveau 1 des options : 
     reverse_axies?:boolean
 }
 
