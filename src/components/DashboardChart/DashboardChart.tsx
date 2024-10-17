@@ -3,6 +3,8 @@ import { EChartsOption } from "echarts";
 import ReactECharts from 'echarts-for-react'; 
 import { useRef } from "react";
 import { useChartData, useDashboardElement } from "../DashboardElement/hooks";
+import deepMerge from "../../utils/deepmerge";
+
 
 type EChartsSeriesTypes = ('line' | 'bar' | 'pie' | 'scatter');
 
@@ -10,16 +12,14 @@ interface IDashboardChartProps {
     data?: any[];
     chart_type?: EChartsSeriesTypes;  // Utiliser directement le type de SeriesOption
     sql? : string;
-    echarts_option?: any; 
-            // TODO voir si besoin de deepmerge, le spread operator risque de ne pas suffire. 
-            // ou utilisé un spread sur chaque element de niveau 1 des options : 
+    echarts_option?: EChartsOption; 
     reverse_axies?:boolean
 }
 
 
 // Les données doivent être de la forme {axeA :   axeB : } ?
 
-const DashboardChart: React.FC<IDashboardChartProps> = ({data, chart_type='line', reverse_axies=false, sql}) => {
+const DashboardChart: React.FC<IDashboardChartProps> = ({data, chart_type='line', reverse_axies=false, echarts_option = {}, sql}) => {
     const chartRef = useRef<any>();
     useDashboardElement({chartRef})
 
@@ -40,6 +40,10 @@ const DashboardChart: React.FC<IDashboardChartProps> = ({data, chart_type='line'
     }
 
     const options:EChartsOption = {
+        title:{
+            show:true,
+            text:"Mon autre titre"
+        },
         series:[
             {
                 type:chart_type,
@@ -61,7 +65,7 @@ const DashboardChart: React.FC<IDashboardChartProps> = ({data, chart_type='line'
     }
     return (
         <ReactECharts
-        option={options} ref={chartRef} />
+        option={deepMerge(options,echarts_option)} ref={chartRef} />
     )
 }
 
