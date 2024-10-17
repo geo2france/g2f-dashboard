@@ -40,10 +40,6 @@ const DashboardChart: React.FC<IDashboardChartProps> = ({data, chart_type='line'
     }
 
     const options:EChartsOption = {
-        title:{
-            show:true,
-            text:"Mon autre titre"
-        },
         series:[
             {
                 type:chart_type,
