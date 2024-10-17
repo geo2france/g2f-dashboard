@@ -17,8 +17,9 @@ import FlipCard from "./components/FlipCard/FlipCard"
 import Attribution from "./components/Attributions/Attributions"
 import NextPrevSelect from "./components/NextPrevSelect/NextPrevSelect"
 import Control from "./components/Control/Control";
+import DashboardChart from "./components/DashboardChart/DashboardChart";
 
-export { KeyFigure, DashboardElement, LoadingContainer, FlipCard, Attribution, NextPrevSelect, Control } 
+export { KeyFigure, DashboardElement, LoadingContainer, FlipCard, Attribution, NextPrevSelect, Control,DashboardChart } 
 
 
 // DataProviders
