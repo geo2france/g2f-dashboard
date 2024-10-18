@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "alasql": "^4.5.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "echarts": "^5.5.1",
     "echarts-for-react": "^3.0.2",
     "query-string": "~7.1.3",
