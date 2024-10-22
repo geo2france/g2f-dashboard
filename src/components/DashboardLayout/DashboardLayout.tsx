@@ -16,8 +16,9 @@ const getSection = (child: React.ReactElement): string | undefined =>
   
 
 const DashboardLayout:React.FC<IDashboardLayoutProps> = ({children, control, row_gutter=[8,8]}) => {
-    const [activeTab, setActiveTab] = useSearchParamsState('tab','')
     const sections = [...new Set( children.map((child) => getSection(child) ?? 'Autres') )];
+
+    const [activeTab, setActiveTab] = useSearchParamsState('tab',sections[0])
 
     sections.sort((a,b) => {
         if (a === 'Autres' ) {return 1};
