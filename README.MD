@@ -46,6 +46,7 @@ Version stable :
 
 ### Composants 
 
+- [DashboardLayout](/src/components/DashboardLayout/) ⭐
 - [DashboardElement](/src/components/DashboardElement/) ⭐
 - [KeyFigure](/src/components/KeyFigure/) ⭐
 - [NextPrevSelect](/src/components/NextPrevSelect/) ⭐

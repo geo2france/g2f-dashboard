@@ -20,12 +20,12 @@ const { Text } = Typography;
 export const chartContext = createContext<any>({
   setchartRef: () => {},
   setData: () => {},
-  data: undefined,
+  setNodata: () => {}
 });
 
 type DataFileType = "csv" | "xlsx" | "ods";
 
-interface IDashboardElementProps {
+export interface IDashboardElementProps {
   title: string;
   children: ReactNode;
   isFetching?: boolean;
@@ -36,6 +36,7 @@ interface IDashboardElementProps {
   exportData?: boolean;
   description?: ReactElement | string;
   licenses?:License[]
+  section?:string
 }
 
 const DashboardElement: React.FC<IDashboardElementProps> = ({
@@ -48,12 +49,13 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   exportPNG = true,
   exportData = true,
   description, 
-  licenses = ['CC', 'BY']
+  licenses = ['CC', 'BY'],
 }) => {
   const { token } = useToken();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [chartRef, setchartRef] = useState(undefined);
   const [data, setData] = useState(undefined);
+  const [nodata, setNodata] = useState(false);
   const [requestDlImage, setRequestDlImage] = useState(false);
   const [requestDlData, setrequestDlData] = useState<DataFileType | null>(null);
 
@@ -170,6 +172,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         styles={cardStyles}
         style={{
           height: "100%",
+          minHeight:300,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -189,8 +192,8 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
           </div>
         }
       >
-        <chartContext.Provider value={{ chartRef, setchartRef, setData }}>
-          <LoadingContainer isFetching={isFetching}>
+        <chartContext.Provider value={{ chartRef, setchartRef, setData, setNodata }}>
+          <LoadingContainer isFetching={isFetching} noData={nodata}>
             {children}
           </LoadingContainer>
         </chartContext.Provider>

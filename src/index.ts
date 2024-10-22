@@ -3,7 +3,7 @@ export { useChartEvents, useChartActionHightlight  } from "./utils/usecharthight
 export {  useSearchParamsState } from "./utils/useSearchParamsState";
 export { useChartExport  } from "./utils/usechartexports";
 export { useApi } from "./utils/useApi";
-export { useChartData, useDashboardElement } from "./components/DashboardElement/hooks";
+export { useChartData, useDashboardElement, useNoData } from "./components/DashboardElement/hooks";
 
 // Helpers
 export { BaseRecordToGeojsonPoint } from "./utils/baserecordtogeojsonpoint"
@@ -17,8 +17,10 @@ import FlipCard from "./components/FlipCard/FlipCard"
 import Attribution from "./components/Attributions/Attributions"
 import NextPrevSelect from "./components/NextPrevSelect/NextPrevSelect"
 import Control from "./components/Control/Control";
+import DashboardChart from "./components/DashboardChart/DashboardChart";
+import DashboardLayout from "./components/DashboardLayout/DashboardLayout";
 
-export { KeyFigure, DashboardElement, LoadingContainer, FlipCard, Attribution, NextPrevSelect, Control } 
+export { KeyFigure, DashboardElement, LoadingContainer, FlipCard, Attribution, NextPrevSelect, Control, DashboardChart, DashboardLayout } 
 
 
 // DataProviders
