@@ -25,7 +25,6 @@ const DashboardLayout:React.FC<IDashboardLayoutProps> = ({children, control, row
         return a.localeCompare(b);
     })
 
-    console.log(sections)
     return(
         <>
             <Control>
@@ -33,8 +32,8 @@ const DashboardLayout:React.FC<IDashboardLayoutProps> = ({children, control, row
                     {control}
                     {sections.length > 1 &&
                         <Radio.Group defaultValue="a" onChange={(e) => setActiveTab(e.target.value)} value={activeTab}>
-                            {sections.map((section) => 
-                                <Radio.Button value={section}>{section}</Radio.Button>
+                            {sections.map((section, idx) => 
+                                <Radio.Button key={idx} value={section}>{section}</Radio.Button>
                             )}
                         </Radio.Group>
                     }
