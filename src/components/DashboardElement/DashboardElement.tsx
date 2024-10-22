@@ -25,7 +25,7 @@ export const chartContext = createContext<any>({
 
 type DataFileType = "csv" | "xlsx" | "ods";
 
-interface IDashboardElementProps {
+export interface IDashboardElementProps {
   title: string;
   children: ReactNode;
   isFetching?: boolean;
@@ -36,6 +36,7 @@ interface IDashboardElementProps {
   exportData?: boolean;
   description?: ReactElement | string;
   licenses?:License[]
+  section?:string
 }
 
 const DashboardElement: React.FC<IDashboardElementProps> = ({
@@ -48,7 +49,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   exportPNG = true,
   exportData = true,
   description, 
-  licenses = ['CC', 'BY']
+  licenses = ['CC', 'BY'],
 }) => {
   const { token } = useToken();
   const [modalIsOpen, setModalIsOpen] = useState(false);
