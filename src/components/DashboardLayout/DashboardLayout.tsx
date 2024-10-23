@@ -32,7 +32,9 @@ const DashboardLayout:React.FC<IDashboardLayoutProps> = ({children, control, row
                 <Flex>
                     {control}
                     {sections.length > 1 &&
-                        <Radio.Group defaultValue="a" onChange={(e) => setActiveTab(e.target.value)} value={activeTab}>
+                        <Radio.Group defaultValue="a" onChange={(e) => setActiveTab(e.target.value)}
+                            value={activeTab} buttonStyle="solid"
+                            >
                             {sections.map((section, idx) => 
                                 <Radio.Button key={idx} value={section}>{section}</Radio.Button>
                             )}
