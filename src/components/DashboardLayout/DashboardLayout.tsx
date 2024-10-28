@@ -4,10 +4,19 @@ import React from "react";
 import { useSearchParamsState } from "../../utils/useSearchParamsState";
 import Control from "../Control/Control";
 
+type Section =  {
+    key: string;
+    libel?: string;
+    order?: number;
+    hide?:boolean;
+    disable?:boolean;
+}
+
 interface IDashboardLayoutProps {
     control? : React.ReactElement
     children : React.ReactElement<typeof DashboardElement>[];
     row_gutter? : RowProps['gutter']
+    sections?: string[] | Section[]
 }
 
 
@@ -15,28 +24,36 @@ const getSection = (child: React.ReactElement): string | undefined =>
     React.isValidElement<IDashboardElementProps>(child) ? child.props.section : undefined ;
   
 
-const DashboardLayout:React.FC<IDashboardLayoutProps> = ({children, control, row_gutter=[8,8]}) => {
-    const sections = [...new Set( children.map((child) => getSection(child) ?? 'Autres') )];
+const DashboardLayout:React.FC<IDashboardLayoutProps> = ({children, control, row_gutter=[8,8], sections}) => {
+    let sections_std:Section[] = []
+    
+    if (sections && typeof(sections[0]) === 'string'){
+        sections_std = (sections as string[]).map((s) => ({key:s}) ) 
+    }else if (sections && typeof(sections[0]) === 'object') {
+        sections_std = sections as Section[]
+    }
+    else{ //Automatic section based on children properties
+        sections_std = [...new Set( children.map((child) => getSection(child) ?? 'Autres') )].map((s) => ({key:s}));
+    }
 
-    const [activeTab, setActiveTab] = useSearchParamsState('tab',sections[0])
+    const [activeTab, setActiveTab] = useSearchParamsState('tab',sections_std[0].key)
 
-    sections.sort((a,b) => {
-        if (a === 'Autres' ) {return 1};
-        if (b === 'Autres' ) {return 1};
-        return a.localeCompare(b);
-    })
+    sections_std.sort((a,b) => 
+       ( a?.order || Infinity ) - (b?.order || Infinity )
+    )
+    
 
     return(
         <>
             <Control>
                 <Flex>
                     {control}
-                    {sections.length > 1 &&
+                    {sections_std.length > 1 &&
                         <Radio.Group defaultValue="a" onChange={(e) => setActiveTab(e.target.value)}
                             value={activeTab} buttonStyle="solid"
                             >
-                            {sections.map((section, idx) => 
-                                <Radio.Button key={idx} value={section}>{section}</Radio.Button>
+                            {sections_std.map((section, idx) => 
+                                <Radio.Button key={idx} value={section.key}>{section.libel || section.key}</Radio.Button>
                             )}
                         </Radio.Group>
                     }
