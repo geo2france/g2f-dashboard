@@ -50,6 +50,7 @@ Version stable :
 - [DashboardElement](/src/components/DashboardElement/) ⭐
 - [KeyFigure](/src/components/KeyFigure/) ⭐
 - [NextPrevSelect](/src/components/NextPrevSelect/) ⭐
+- [MapLegend](/src/components/MapLegend/) ⭐
 - [FlipCard](/src/components/FlipCard/)
 - [LoadingContainer](/src/components/LoadingContainer/)
 
@@ -59,6 +60,7 @@ Version stable :
 - [useChartEvents](/src/utils/README.MD) ⭐
 - [useChartActionHightlight](/src/utils/README.MD) ⭐
 - [useSearchParamsState](/src/utils/README.MD) ⭐
+- [useMapControl](/src/utils/README.MD) ⭐
 - [useChartExport](/src/utils/README.MD)
 
 ### Fournisseur de données
