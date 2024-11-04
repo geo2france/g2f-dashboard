@@ -5,7 +5,8 @@ Utilisez le _hook_ [useMapControl](../../utils/README.MD) pour ajouter la légen
 
 ![screenshot](./MapLegend.png)
 
-Exemple : 
+## Exemple
+
 ```tsx
 
 const colors = {incitative:"#7EDB69", classique:"#C479DC"}
@@ -29,7 +30,7 @@ export const MapTI: React.FC<IMapTIProps> = ({ style }) => {
       ref={mapRef} // Référence de la carte pour le hook useMapControl  
     >
     {/* Sources, layers, etc.. */}
-    </map>
+    </Map>
     )
 }
 ```
