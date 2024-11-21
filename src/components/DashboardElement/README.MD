@@ -25,6 +25,8 @@ Pour fonctionner correctement, le composant enfant doit exporter la référence 
 - `exportPNG` : Booléen pour autoriser l'export en format image
 - `exportData` : Booléen pour autoriser l'export de données
 - `Licenses` : Les licences appliquées au graphique (exemple : ['CC','SA']). Par défaut ['CC','BY'].
+- `header` : Booléen pour afficher/masquer l'entête (titre + menu contextuel) (_true_)
+- `virtual` : Booléen pour que le composant serve uniquement de conteneur logique, sans élément visible (_false_)
 
 
 

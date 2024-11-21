@@ -38,6 +38,7 @@ export interface IDashboardElementProps {
   description?: ReactElement | string;
   licenses?:License[]
   section?:string
+  virtual?:boolean
 }
 
 const DashboardElement: React.FC<IDashboardElementProps> = ({
@@ -52,6 +53,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   exportData = true,
   description, 
   licenses = ['CC', 'BY'],
+  virtual = false,
 }) => {
   const { token } = useToken();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -173,13 +175,14 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         className="dashboard-element"
         styles={cardStyles}
         style={{
+          backgroundColor: virtual ? 'transparent' : undefined,
+          boxShadow : virtual ? 'none' : undefined,
           height: "100%",
-          minHeight:300,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
         }}
-        title={ header &&
+        bordered={!virtual}
+        title={ header && !virtual &&
           <div
             style={{
               display: "flex",
@@ -194,33 +197,35 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
           </div>
         }
       >
-        <chartContext.Provider value={{ chartRef, setchartRef, setData, setNodata }}>
-          <LoadingContainer isFetching={isFetching} noData={nodata}>
-            {children}
-          </LoadingContainer>
-        </chartContext.Provider>
+        <Flex vertical justify="space-between" style={{height:"100%"}}>
+          <chartContext.Provider value={{ chartRef, setchartRef, setData, setNodata }}>
+            <LoadingContainer isFetching={isFetching} noData={nodata}>
+              {children}
+            </LoadingContainer>
+          </chartContext.Provider>
 
-        <Flex justify="flex-end" align="flex-end" style={{ marginRight: 5 }}>
-          {attributions && (
-            <div style={{ marginTop: "auto" }}>
-              <Attribution licenses={licenses} data={attributions} />
-            </div>
-          )}
-          {description && (
-            <Popover content={
-                  <div style={{ maxWidth: 800 }}>
-                    {typeof description === "string" ? 
-                      <Text italic type="secondary"> {description} </Text> 
-                      : <>{description}</> }
-                  </div>
-                } 
-            >
-              <Button 
-                type="link" 
-                icon={<HiQuestionMarkCircle />} 
-                style={{fontSize:"150%"}}/>
-            </Popover>
-          )}
+          <Flex justify="flex-end" align="flex-end" style={{ marginRight: 5}}>
+            {attributions && (
+              <div style={{ marginTop: "auto" }}>
+                <Attribution licenses={licenses} data={attributions} />
+              </div>
+            )}
+            {description && (
+              <Popover content={
+                    <div style={{ maxWidth: 800 }}>
+                      {typeof description === "string" ? 
+                        <Text italic type="secondary"> {description} </Text> 
+                        : <>{description}</> }
+                    </div>
+                  } 
+              >
+                <Button 
+                  type="link" 
+                  icon={<HiQuestionMarkCircle />} 
+                  style={{fontSize:"150%"}}/>
+              </Popover>
+            )}
+          </Flex>
         </Flex>
       </Card>
 
