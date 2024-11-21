@@ -2,13 +2,17 @@
 
 Le composant [DashboardElement](src/components/dashboard_element/index.tsx) peut-être utilisé pour ajouter des fonctionnalités à un _element_ (graphique ou cartographique) de tableau de bord.
 Il ajoute :
-- Une _card_ servant de conteneur, avec titre et crédit.
+- Une _card_ servant de conteneur, avec titre, crédit et licences.
 - Un menu contextuel permettant à l'utilisateur de :
     - Afficher le contenu en plein écran
     - Exporter le contenu en format image (png)
-- Un gestion du chargement de données
+    - Exporter les données (csv, xlsx, ods)
+- Un gestion du chargement de données et des données non disponibles
+- Une possibilité d'écrire une note méthodologique
 
 Pour fonctionner correctement, le composant enfant doit exporter la référence de l'élément graphique (_echart_ ou _maplibre_) à l'aide du hook `useDashboardElement`.
+
+![Capture d'écran du composant Dashboard Element](./dashboardelement_screen.png)
 
 ## Propriétés
 
@@ -21,20 +25,22 @@ Pour fonctionner correctement, le composant enfant doit exporter la référence 
 - `exportPNG` : Booléen pour autoriser l'export en format image
 - `exportData` : Booléen pour autoriser l'export de données
 - `Licenses` : Les licences appliquées au graphique (exemple : ['CC','SA']). Par défaut ['CC','BY'].
+- `header` : Booléen pour afficher/masquer l'entête (titre + menu contextuel) (_true_)
+- `virtual` : Booléen pour que le composant serve uniquement de conteneur logique, sans élément visible (_false_)
 
 
 
-## Export des données
+## Données du graphique
 
 Les données proposées au téléchargement à l'utilisateur sont à définir dans le hook `useExportData`. Si, pour un graphique, les données sont susceptibles de changer, on passera les variables qui déclanchent ce changement dans le paramètre `dependencies`.
 L'utilisateur peut télécharger les données en _csv_, _ods_ ou _xlsx_.
 
 Il est possible de désactiver l'export de données en passant le paramètre `exportData=False` au composant `DashboardElement`.
+Si le tableau passé en paramètre est vide, le composant affichera alors une information "Pas de données disponibles".
 
 Exemple :
 ```typescript
-    // La sélection d'une autre année change les données a télécharger
-    useChartData({data:data_chart, dependencies:[year]})
+    useChartData({data:data_chart}) //Si datachart est un tableau vide, le graphique est masqué et remplacé par un affichage "Pas de données".
 ```
 
 

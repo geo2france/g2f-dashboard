@@ -29,15 +29,29 @@ export const useDashboardElement = ({ chartRef }: useDashboardElementProps) => {
  * @param {Array<any>} [props.dependencies=[]] - Les dépendances suspeptibles de modifier les données
  */
 export interface useChartDataProps {
-  data?: any,
+  data?: any[],
   dependencies?:any[]
 }
 export const useChartData = ({data, dependencies=[]}:useChartDataProps) => {
-  const { setData, data:contextdata } = useContext(chartContext); 
+  const { setData, setNodata } = useContext(chartContext); 
+  useEffect(() => {
+      setData(data);
+      data === undefined || data.length < 1 ? setNodata(true) : setNodata(false)
+  }, dependencies);
+}
+
+
+/**
+ * Hook permettant d'indiquer au DashboardElement que aucune données n'est disponible
+ * Il est aussi possible d'avoir ce comportement en passant un tableau vide dans useChartData
+ * Deprécié (utilisez useChartData avec un tableau vide)
+ * @param {boolean} noData - True si aucune donnée n'est disponible.
+ */
+export const useNoData = (noData:boolean) => {
+  const { setNodata } = useContext(chartContext); 
 
   useEffect(() => {
-    if (data && contextdata != data) {
-      setData(data);
-    }
-  }, dependencies);
+      setNodata(noData);
+  },[noData]) // !
+
 }

@@ -121,3 +121,9 @@ useEffect(() => { //Proposer le téléchargement d'une image générée.
     }
 }, [img64])
 ```
+
+
+### useMapControl
+
+Ajouter un control (élément HTML) sur une carte.
+

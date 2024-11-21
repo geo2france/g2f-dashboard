@@ -20,15 +20,16 @@ const { Text } = Typography;
 export const chartContext = createContext<any>({
   setchartRef: () => {},
   setData: () => {},
-  data: undefined,
+  setNodata: () => {}
 });
 
 type DataFileType = "csv" | "xlsx" | "ods";
 
-interface IDashboardElementProps {
+export interface IDashboardElementProps {
   title: string;
   children: ReactNode;
   isFetching?: boolean;
+  header?: boolean;
   attributions?: SourceProps[];
   toolbox?: boolean;
   fullscreen?: boolean;
@@ -36,11 +37,14 @@ interface IDashboardElementProps {
   exportData?: boolean;
   description?: ReactElement | string;
   licenses?:License[]
+  section?:string
+  virtual?:boolean
 }
 
 const DashboardElement: React.FC<IDashboardElementProps> = ({
   children,
   title,
+  header = true,
   attributions,
   isFetching = false,
   toolbox = true,
@@ -48,12 +52,14 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
   exportPNG = true,
   exportData = true,
   description, 
-  licenses = ['CC', 'BY']
+  licenses = ['CC', 'BY'],
+  virtual = false,
 }) => {
   const { token } = useToken();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [chartRef, setchartRef] = useState(undefined);
   const [data, setData] = useState(undefined);
+  const [nodata, setNodata] = useState(false);
   const [requestDlImage, setRequestDlImage] = useState(false);
   const [requestDlData, setrequestDlData] = useState<DataFileType | null>(null);
 
@@ -169,12 +175,14 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
         className="dashboard-element"
         styles={cardStyles}
         style={{
+          backgroundColor: virtual ? 'transparent' : undefined,
+          boxShadow : virtual ? 'none' : undefined,
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
         }}
-        title={
+        bordered={!virtual}
+        title={ header && !virtual &&
           <div
             style={{
               display: "flex",
@@ -189,33 +197,35 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
           </div>
         }
       >
-        <chartContext.Provider value={{ chartRef, setchartRef, setData }}>
-          <LoadingContainer isFetching={isFetching}>
-            {children}
-          </LoadingContainer>
-        </chartContext.Provider>
+        <Flex vertical justify="space-between" style={{height:"100%"}}>
+          <chartContext.Provider value={{ chartRef, setchartRef, setData, setNodata }}>
+            <LoadingContainer isFetching={isFetching} noData={nodata}>
+              {children}
+            </LoadingContainer>
+          </chartContext.Provider>
 
-        <Flex justify="flex-end" align="flex-end" style={{ marginRight: 5 }}>
-          {attributions && (
-            <div style={{ marginTop: "auto" }}>
-              <Attribution licenses={licenses} data={attributions} />
-            </div>
-          )}
-          {description && (
-            <Popover content={
-                  <div style={{ maxWidth: 800 }}>
-                    {typeof description === "string" ? 
-                      <Text italic type="secondary"> {description} </Text> 
-                      : <>{description}</> }
-                  </div>
-                } 
-            >
-              <Button 
-                type="link" 
-                icon={<HiQuestionMarkCircle />} 
-                style={{fontSize:"150%"}}/>
-            </Popover>
-          )}
+          <Flex justify="flex-end" align="flex-end" style={{ marginRight: 5}}>
+            {attributions && (
+              <div style={{ marginTop: "auto" }}>
+                <Attribution licenses={licenses} data={attributions} />
+              </div>
+            )}
+            {description && (
+              <Popover content={
+                    <div style={{ maxWidth: 800 }}>
+                      {typeof description === "string" ? 
+                        <Text italic type="secondary"> {description} </Text> 
+                        : <>{description}</> }
+                    </div>
+                  } 
+              >
+                <Button 
+                  type="link" 
+                  icon={<HiQuestionMarkCircle />} 
+                  style={{fontSize:"150%"}}/>
+              </Popover>
+            )}
+          </Flex>
         </Flex>
       </Card>
 
