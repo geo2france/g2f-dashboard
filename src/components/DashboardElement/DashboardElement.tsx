@@ -29,6 +29,7 @@ export interface IDashboardElementProps {
   title: string;
   children: ReactNode;
   isFetching?: boolean;
+  header?: boolean;
   attributions?: SourceProps[];
   toolbox?: boolean;
   fullscreen?: boolean;
@@ -42,6 +43,7 @@ export interface IDashboardElementProps {
 const DashboardElement: React.FC<IDashboardElementProps> = ({
   children,
   title,
+  header = true,
   attributions,
   isFetching = false,
   toolbox = true,
@@ -177,7 +179,7 @@ const DashboardElement: React.FC<IDashboardElementProps> = ({
           flexDirection: "column",
           justifyContent: "space-between",
         }}
-        title={
+        title={ header &&
           <div
             style={{
               display: "flex",
